@@ -21,6 +21,6 @@ class FormTemplate extends Model
 
     public function submissions(): HasMany
     {
-        return $this->HasMany(FormSubmission::class);
+        return $this->hasMany(FormSubmission::class);
     }
 }

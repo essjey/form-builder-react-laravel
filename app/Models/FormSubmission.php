@@ -10,12 +10,12 @@ class FormSubmission extends Model
     protected $fillable = [
         'form_template_id',
         'data',
-        'submission_at'
+        'submitted_at'
     ];
 
     protected $casts = [
         'data' => 'array',
-        'submission_at' => 'datetime'
+        'submitted_at' => 'datetime'
     ];
 
     public function template(): BelongsTo

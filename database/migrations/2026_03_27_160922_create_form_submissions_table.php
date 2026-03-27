@@ -17,7 +17,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->json('data');
-            $table->timestamp('submission_at')->nullable();
+            $table->timestamp('submitted_at')->nullable();
             $table->timestamps();
         });
     }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FormSubmissionController;
+use App\Http\Controllers\FormTemplateController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -11,4 +13,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';
+
+Route::get('templates', [FormTemplateController::class, 'index']);
+Route::get('templates/{template}', [FormTemplateController::class, 'show']);
+Route::post('templates', [FormTemplateController::class, 'store']);
+Route::put('templates/{template}', [FormTemplateController::class, 'update']);
+
+Route::post('templates/{template}/submissions', [FormSubmissionController::class, 'store']);

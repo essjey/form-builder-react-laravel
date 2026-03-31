@@ -20,11 +20,32 @@ class FormSubmissionController extends Controller
 
             if (!empty($field['required'])) {
                 $fieldRules[] = 'required';
+            } else {
+                $fieldRules[] = 'nullable';
             }
 
             if ($field['type'] === 'email') {
                 $fieldRules[] = 'email';
             }
+
+            /**
+             * @todo Validation to add
+             * 
+             * maybe array / boolean later if needed
+             */
+
+            if (in_array($field['type'], ['text', 'textarea'])) {
+                $fieldRules[] = 'string';
+
+                if (isset($field['min'])) {
+                    $fieldRules[] = "min:{$field['min']}";
+                }
+
+                if (isset($field['max'])) {
+                    $fieldRules[] = "max:{$field['max']}";
+                }
+            }
+
 
             $rules[$field['name']] = $fieldRules;
         }

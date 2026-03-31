@@ -13,6 +13,24 @@ class FormSubmissionController extends Controller
      */
     public function store(Request $request, FormTemplate $template)
     {
+        $rules = [];
+
+        foreach ($template->schema['fields'] as $field) {
+            $fieldRules = [];
+
+            if (!empty($field['required'])) {
+                $fieldRules[] = 'required';
+            }
+
+            if ($field['type'] === 'email') {
+                $fieldRules[] = 'email';
+            }
+
+            $rules[$field['name']] = $fieldRules;
+        }
+
+        $request->validate($rules);
+
         $template->submissions()->create([
             'data' => $request->all(),
             'submitted_at' => now(),

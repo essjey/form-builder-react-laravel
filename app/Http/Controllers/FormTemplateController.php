@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FormTemplate;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class FormTemplateController extends Controller
 {
@@ -28,7 +29,9 @@ class FormTemplateController extends Controller
      */
     public function show(FormTemplate $template)
     {
-        return $template;
+        return Inertia::render('Templates/Show', [
+            'template' => $template,
+        ]);
     }
 
     /**

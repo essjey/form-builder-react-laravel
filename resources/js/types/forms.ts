@@ -23,6 +23,7 @@ export type FormTemplate = {
     schema: {
         fields: Field[];
     };
+    created_at: string;
 };
 
 export type FormValue = string | boolean | string[];

@@ -30,8 +30,8 @@ export default function FormRenderer({
     inputClass = 'w-full rounded border px-3 py-2',
     submitClass = 'rounded bg-black px-4 py-2 text-white',
     errorSummaryClass = 'rounded border border-red-300 bg-red-50 p-4',
-    errorSummaryListClass = 'mt-2 list-none pl-5',
-    errorSummaryItemClass = 'p-0',
+    errorSummaryListClass = 'mt-2 list-none pl-0',
+    errorSummaryItemClass = '',
     errorSummaryLinkClass = 'text-red-700 underline',
 }: FormRendererProps) {
     const initialData = template.schema.fields.reduce<Record<string, FormValue>>((acc, field) => {
@@ -63,7 +63,7 @@ export default function FormRenderer({
         <form onSubmit={handleSubmit} className={formClass} noValidate>
             {fieldsWithErrors.length > 0 && (
                 <div className={errorSummaryClass} role="alert" aria-labelledby="form-errors-title">
-                    <h2 id="form-errors-title" className="font-semibold">
+                    <h2 id="form-errors-title" className="font-semibold text-gray-900">
                         Please correct the following errors:
                     </h2>
 

@@ -37,7 +37,8 @@ class FormSubmissionController extends Controller
             /**
              * @todo Validation to add
              * 
-             * maybe array / boolean later if needed
+             * date support
+             * multiselect support
              */
 
             if (in_array($field['type'], ['text', 'textarea'])) {

@@ -5,6 +5,7 @@ type CheckboxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 
     label?: string;
     error?: string;
     help?: string;
+    checkWrapClass?: string;
     labelClass?: string;
     helpClass?: string;
     errorClass?: string;
@@ -14,6 +15,7 @@ export default function Checkbox({
     label,
     error,
     help,
+    checkWrapClass,
     labelClass,
     helpClass,
     errorClass,
@@ -21,7 +23,7 @@ export default function Checkbox({
 }: CheckboxProps) {
     return (
         <>
-            <div className="flex items-center gap-2">
+            <div className={`flex items-center gap-2 ${checkWrapClass}`}>
                 <input
                     {...props}
                     id={props.id}

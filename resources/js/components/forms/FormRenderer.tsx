@@ -13,6 +13,10 @@ type FormRendererProps = {
     errorClass?: string;
     inputClass?: string;
     submitClass?: string;
+    errorSummaryClass?: string;
+    errorSummaryListClass?: string;
+    errorSummaryItemClass?: string;
+    errorSummaryLinkClass?: string;
 };
 
 export default function FormRenderer({
@@ -25,6 +29,10 @@ export default function FormRenderer({
     errorClass = 'mt-1 text-sm text-red-600',
     inputClass = 'w-full rounded border px-3 py-2',
     submitClass = 'rounded bg-black px-4 py-2 text-white',
+    errorSummaryClass = 'rounded border border-red-300 bg-red-50 p-4',
+    errorSummaryListClass = 'mt-2 list-none pl-5',
+    errorSummaryItemClass = 'p-0',
+    errorSummaryLinkClass = 'text-red-700 underline',
 }: FormRendererProps) {
     const initialData = template.schema.fields.reduce<Record<string, FormValue>>((acc, field) => {
         if (field.type === 'checkbox') {
@@ -40,6 +48,8 @@ export default function FormRenderer({
 
     const { data, setData, post, processing, errors } = useForm(initialData);
 
+    const fieldsWithErrors = template.schema.fields.filter((field) => errors[field.name]);
+
     function handleChange(name: string, value: FormValue) {
         setData(name, value);
     }
@@ -51,6 +61,24 @@ export default function FormRenderer({
 
     return (
         <form onSubmit={handleSubmit} className={formClass} noValidate>
+            {fieldsWithErrors.length > 0 && (
+                <div className={errorSummaryClass} role="alert" aria-labelledby="form-errors-title">
+                    <h2 id="form-errors-title" className="font-semibold">
+                        Please correct the following errors:
+                    </h2>
+
+                    <ul className={errorSummaryListClass}>
+                        {fieldsWithErrors.map((field) => (
+                            <li key={field.name} className={errorSummaryItemClass}>
+                                <a href={`#${field.name}`} className={errorSummaryLinkClass}>
+                                    {field.label ?? field.name}: {errors[field.name]}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
             {template.schema.fields.map((field) => (
                 <div key={field.name} className={fieldWrapperClass}>
                     <FormField

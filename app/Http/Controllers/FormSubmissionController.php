@@ -18,7 +18,7 @@ class FormSubmissionController extends Controller
         foreach ($template->schema['fields'] as $field) {
             $fieldRules = [];
 
-            if (!empty($field['required'])) {
+            if (! empty($field['required'])) {
                 $fieldRules[] = 'required';
             } else {
                 $fieldRules[] = 'nullable';
@@ -28,19 +28,18 @@ class FormSubmissionController extends Controller
                 $fieldRules[] = 'email';
             }
 
-            if ($field['type'] === 'checkbox' && !empty($field['required'])) {
+            if ($field['type'] === 'checkbox' && ! empty($field['required'])) {
                 $fieldRules[] = 'accepted';
-            } else if ($field['type'] === 'checkbox') {
+            } elseif ($field['type'] === 'checkbox') {
                 $fieldRules[] = 'boolean';
             }
 
             /**
              * @todo Validation to add
-             * 
+             *
              * date support
              * multiselect support
              */
-
             if (in_array($field['type'], ['text', 'textarea'])) {
                 $fieldRules[] = 'string';
 
@@ -52,7 +51,6 @@ class FormSubmissionController extends Controller
                     $fieldRules[] = "max:{$field['max']}";
                 }
             }
-
 
             $rules[$field['name']] = $fieldRules;
         }

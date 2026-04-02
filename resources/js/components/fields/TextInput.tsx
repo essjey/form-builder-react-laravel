@@ -21,7 +21,7 @@ export default function TextInput({ label, error, help, labelClass, helpClass, e
 
             <input
                 {...props}
-                aria-invalid={error ? true : false}
+                aria-invalid={!!error}
                 aria-describedby={[
                     help ? `help-${props.id}` : null,
                     error ? `error-${props.id}` : null,

@@ -28,6 +28,12 @@ class FormSubmissionController extends Controller
                 $fieldRules[] = 'email';
             }
 
+            if ($field['type'] === 'checkbox' && !empty($field['required'])) {
+                $fieldRules[] = 'accepted';
+            } else if ($field['type'] === 'checkbox') {
+                $fieldRules[] = 'boolean';
+            }
+
             /**
              * @todo Validation to add
              * 

@@ -1,27 +1,10 @@
 import React from 'react';
+import type { Field } from '@/types/forms';
 import Checkbox from './CheckboxInput';
 import EmailInput from './EmailInput';
 import Select from './SelectInput';
 import Textarea from './TextareaInput';
 import TextInput from './TextInput';
-
-type SelectOption = {
-    value: string;
-    label: string;
-};
-
-type Field = {
-    name: string;
-    type: 'text' | 'email' | 'textarea' | 'select' | 'checkbox' | 'date';
-    label?: string;
-    help?: string;
-    required?: boolean;
-    options?: SelectOption[];
-    placeholder?: string;
-    min?: number;
-    max?: number;
-    multiple?: boolean;
-};
 
 type FormFieldProps = {
     field: Field;

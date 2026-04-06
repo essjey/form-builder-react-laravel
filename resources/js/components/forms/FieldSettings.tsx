@@ -93,6 +93,7 @@ export default function FieldSettings({
                         type="text"
                         className={inputClass}
                         value={field.label ?? ''}
+                        required
                         onChange={(e) => updateField('label', e.target.value)}
                     />
                 </div>
@@ -108,6 +109,7 @@ export default function FieldSettings({
                         type="text"
                         className={inputClass}
                         value={field.name}
+                        required
                         onChange={(e) => updateField('name', e.target.value)}
                     />
                     {nameError ? <p className={errorClass}>{nameError}</p> : null}

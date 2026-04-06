@@ -16,6 +16,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 require __DIR__ . '/settings.php';
 
 Route::get('templates', [FormTemplateController::class, 'index']);
+Route::get('templates/create', [FormTemplateController::class, 'create'])
+    ->name('templates.create');
 Route::get('templates/{template}', [FormTemplateController::class, 'show'])
     ->name('templates.show');
 Route::get('templates/{template}/edit', [FormTemplateController::class, 'edit'])

@@ -16,12 +16,28 @@ class FormTemplateController extends Controller
         return FormTemplate::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'schema' => ['required', 'array'],
+            'schema.fields' => ['required', 'array'],
+        ]);
+
+        $template = FormTemplate::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'schema' => $validated['schema'],
+            'is_active' => true,
+        ]);
+
+        return redirect()->route('templates.show', $template);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Templates/Create');
     }
 
     /**

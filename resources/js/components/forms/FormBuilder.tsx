@@ -45,6 +45,11 @@ export default function FormBuilder({
     const [fields, setFields] = React.useState<BuilderField[]>(
         template.schema.fields.map(createBuilderField)
     );
+    const hasEmptyNames = fields.some((field) => !field.name.trim());
+    const names = fields.map((f) => f.name.trim());
+    const hasDuplicates = new Set(names).size !== names.length;
+
+    const isInvalid = hasEmptyNames || hasDuplicates;
 
     function updateField(builderId: string, updatedField: Field) {
         setFields((currentFields) =>
@@ -149,7 +154,7 @@ export default function FormBuilder({
             </div>
 
             <div>
-                <button type="submit" className={buttonClass}>
+                <button type="submit" className={`${buttonClass} dark:text-white`} disabled={isInvalid}>
                     Save template
                 </button>
             </div>

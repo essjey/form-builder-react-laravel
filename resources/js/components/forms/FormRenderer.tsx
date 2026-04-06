@@ -82,20 +82,26 @@ export default function FormRenderer({
                 </div>
             )}
 
-            {template.schema.fields.map((field) => (
-                <div key={field.name} className={fieldWrapperClass}>
-                    <FormField
-                        field={field}
-                        value={data[field.name]}
-                        error={errors[field.name]}
-                        onChange={handleChange}
-                        labelClass={labelClass}
-                        helpClass={helpClass}
-                        errorClass={errorClass}
-                        inputClass={inputClass}
-                    />
-                </div>
-            ))}
+            {template.schema.fields.map((field) => {
+                if (!field.name) {
+                    return null;
+                }
+
+                return (
+                    <div key={field.name} className={fieldWrapperClass}>
+                        <FormField
+                            field={field}
+                            value={data[field.name]}
+                            error={errors[field.name]}
+                            onChange={handleChange}
+                            labelClass={labelClass}
+                            helpClass={helpClass}
+                            errorClass={errorClass}
+                            inputClass={inputClass}
+                        />
+                    </div>
+                )
+            })}
 
             <div>
                 <button type="submit" className={submitClass} disabled={processing}>

@@ -166,14 +166,24 @@ export default function FieldSettings({
                     <input
                         id={`${field.name || field.type}-min`}
                         type="number"
+                        min={0}
                         className={inputClass}
                         value={field.min ?? ''}
-                        onChange={(e) =>
-                            updateField(
-                                'min',
-                                e.target.value === '' ? undefined : Number(e.target.value)
-                            )
-                        }
+                        onChange={(e) => {
+                            const newMin = e.target.value === '' ? undefined : Number(e.target.value);
+
+                            let newMax = field.max;
+
+                            if (newMin !== undefined && newMax !== undefined && newMax < newMin) {
+                                newMax = newMin;
+                            }
+
+                            onChange({
+                                ...field,
+                                min: newMin,
+                                max: newMax,
+                            });
+                        }}
                     />
                 </div>
             )}
@@ -187,6 +197,7 @@ export default function FieldSettings({
                         id={`${field.name || field.type}-max`}
                         type="number"
                         className={inputClass}
+                        min={field.min ?? 0}
                         value={field.max ?? ''}
                         onChange={(e) =>
                             updateField(

@@ -25,6 +25,16 @@ class FormTemplateController extends Controller
     }
 
     /**
+     * Display Template Editor
+     */
+    public function edit(FormTemplate $template)
+    {
+        return Inertia::render('Templates/Edit', [
+            'template' => $template,
+        ]);
+    }
+
+    /**
      * Display the specified resource.
      */
     public function show(FormTemplate $template)
@@ -34,12 +44,22 @@ class FormTemplateController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, FormTemplate $template)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'schema' => ['required', 'array'],
+            'schema.fields' => ['required', 'array'],
+        ]);
+
+        $template->update([
+            'name' => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'schema' => $validated['schema'],
+        ]);
+
+        return redirect()->route('templates.edit', $template);
     }
 
     // /**

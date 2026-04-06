@@ -62,6 +62,7 @@ class FormSubmissionController extends Controller
             'submitted_at' => now(),
         ]);
 
-        return Response::json(['success' => true]);
+        // return Response::json(['success' => true]);
+        redirect()->back();
     }
 }

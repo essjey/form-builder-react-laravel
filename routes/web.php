@@ -13,10 +13,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';
 
 Route::get('templates', [FormTemplateController::class, 'index']);
-Route::get('templates/{template}', [FormTemplateController::class, 'show']);
+Route::get('templates/{template}', [FormTemplateController::class, 'show'])
+    ->name('templates.show');
+Route::get('templates/{template}/edit', [FormTemplateController::class, 'edit'])
+    ->name('templates.edit');
 Route::post('templates', [FormTemplateController::class, 'store']);
 Route::put('templates/{template}', [FormTemplateController::class, 'update']);
 

@@ -46,7 +46,7 @@ export default function FormRenderer({
         return acc;
     }, {});
 
-    const { data, setData, post, processing, errors } = useForm(initialData);
+    const { data, setData, post, processing, errors, reset } = useForm(initialData);
 
     const fieldsWithErrors = template.schema.fields.filter((field) => errors[field.name]);
 
@@ -56,7 +56,10 @@ export default function FormRenderer({
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        post(`/templates/${template.id}/submissions`);
+
+        post(`/templates/${template.id}/submissions`, {
+            onSuccess: () => reset(),
+        });
     }
 
     return (

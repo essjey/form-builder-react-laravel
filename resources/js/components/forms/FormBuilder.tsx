@@ -149,7 +149,7 @@ export default function FormBuilder({
                         />
                     ))
                 ) : (
-                    <div className={sectionClass}>
+                    <div className={`${sectionClass}`}>
                         {/* <p className='text-black'>No fields added yet.</p> */}
                         <svg viewBox="0 0 500 100" width="100%" height="auto" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Empty field placeholder">
                             <rect x="1" y="1" width="498" height="98" rx="3" fill="#FAFAFA" stroke="#D4D4D8" stroke-dasharray="6 6" />

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormTemplateRequest;
 use App\Models\FormTemplate;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class FormTemplateController extends Controller
@@ -18,14 +18,9 @@ class FormTemplateController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(FormTemplateRequest $request)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'schema' => ['required', 'array'],
-            'schema.fields' => ['required', 'array'],
-        ]);
+        $validated = $request->validate();
 
         $template = FormTemplate::create([
             'name' => $validated['name'],
@@ -62,14 +57,9 @@ class FormTemplateController extends Controller
         ]);
     }
 
-    public function update(Request $request, FormTemplate $template)
+    public function update(FormTemplateRequest $request, FormTemplate $template)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'schema' => ['required', 'array'],
-            'schema.fields' => ['required', 'array'],
-        ]);
+        $validated = $request->validate();
 
         $template->update([
             'name' => $validated['name'],

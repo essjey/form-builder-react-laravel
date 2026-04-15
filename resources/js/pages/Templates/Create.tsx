@@ -1,5 +1,6 @@
 import { Head, router } from '@inertiajs/react';
 import FormBuilder from '@/components/forms/FormBuilder';
+import * as templates from '@/routes/templates';
 import type { FormTemplate } from '@/types/forms';
 
 const emptyTemplate: FormTemplate = {
@@ -19,12 +20,12 @@ export default function Create() {
 
     return (
         <>
-            <Head title="Create Template" />
+            <Head title="Create Form" />
 
             <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                        Create Template
+                        Create Form
                     </h1>
                     <p className="text-gray-600">
                         Build a new form template.
@@ -45,3 +46,10 @@ export default function Create() {
         </>
     );
 }
+
+Create.layout = {
+    breadcrumbs: [
+        { title: 'Forms', href: templates.index() },
+        { title: 'Create', href: templates.create() },
+    ],
+};

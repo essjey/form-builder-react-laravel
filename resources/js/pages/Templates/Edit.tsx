@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { router } from '@inertiajs/react';
 import FormBuilder from '@/components/forms/FormBuilder';
+import * as templates from '@/routes/templates';
 import type { FormTemplate } from '@/types/forms';
 
 type Props = {
@@ -19,7 +20,7 @@ export default function Edit({ template }: Props) {
             <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                        Edit Template
+                        Editing {template.name}
                     </h1>
                     <p className="text-gray-600">
                         Update the template settings and supported fields.
@@ -40,3 +41,10 @@ export default function Edit({ template }: Props) {
         </>
     );
 }
+
+Edit.layout = {
+    breadcrumbs: [
+        { title: 'Forms', href: templates.index() },
+        { title: 'Edit', href: '#' }
+    ],
+};

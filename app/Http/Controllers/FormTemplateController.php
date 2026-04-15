@@ -13,7 +13,9 @@ class FormTemplateController extends Controller
      */
     public function index()
     {
-        return FormTemplate::all();
+        return Inertia::render('Templates/Index', [
+            'templates' => FormTemplate::all(),
+        ]);
     }
 
     public function store(Request $request)

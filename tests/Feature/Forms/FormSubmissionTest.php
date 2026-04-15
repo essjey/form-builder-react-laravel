@@ -18,7 +18,7 @@ test('submits a form submission', function () {
         'message' => 'hello',
     ]);
 
-    $response->assertStatus(200);
+    $response->assertRedirect();
 
     $this->assertDatabaseHas('form_submissions', [
         'form_template_id' => $template->id,
@@ -97,7 +97,7 @@ test('submits when textarea is within min and max length', function () {
         'message' => 'hello there',
     ]);
 
-    $response->assertStatus(200);
+    $response->assertRedirect();
 
     $this->assertDatabaseHas('form_submissions', [
         'form_template_id' => $template->id,
@@ -116,7 +116,7 @@ test('allows nullable textarea to be omitted', function () {
 
     $response = $this->post("/templates/{$template->id}/submissions", []);
 
-    $response->assertStatus(200);
+    $response->assertRedirect();
 
     $this->assertDatabaseHas('form_submissions', [
         'form_template_id' => $template->id,

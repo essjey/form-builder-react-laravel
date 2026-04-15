@@ -20,7 +20,7 @@ class FormTemplateController extends Controller
 
     public function store(FormTemplateRequest $request)
     {
-        $validated = $request->validate();
+        $validated = $request->validated();
 
         $template = FormTemplate::create([
             'name' => $validated['name'],

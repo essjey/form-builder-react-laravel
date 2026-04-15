@@ -15,15 +15,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 require __DIR__.'/settings.php';
 
-Route::get('templates', [FormTemplateController::class, 'index'])
-    ->name('templates.index');
-Route::get('templates/create', [FormTemplateController::class, 'create'])
-    ->name('templates.create');
-Route::get('templates/{template}', [FormTemplateController::class, 'show'])
-    ->name('templates.show');
-Route::get('templates/{template}/edit', [FormTemplateController::class, 'edit'])
-    ->name('templates.edit');
-Route::post('templates', [FormTemplateController::class, 'store']);
-Route::put('templates/{template}', [FormTemplateController::class, 'update']);
+Route::middleware(['auth', 'verified'])->group(
+    function () {
+        Route::get('templates', [FormTemplateController::class, 'index'])
+            ->name('templates.index');
+        Route::get('templates/create', [FormTemplateController::class, 'create'])
+            ->name('templates.create');
+        Route::get('templates/{template}', [FormTemplateController::class, 'show'])
+            ->name('templates.show');
+        Route::get('templates/{template}/edit', [FormTemplateController::class, 'edit'])
+            ->name('templates.edit');
+        Route::post('templates', [FormTemplateController::class, 'store']);
+        Route::put('templates/{template}', [FormTemplateController::class, 'update']);
 
-Route::post('templates/{template}/submissions', [FormSubmissionController::class, 'store']);
+        Route::post('templates/{template}/submissions', [FormSubmissionController::class, 'store']);
+    }
+);

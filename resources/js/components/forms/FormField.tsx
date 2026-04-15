@@ -48,6 +48,8 @@ export default function FormField({
                     type="text"
                     value={typeof value === 'string' ? value : ''}
                     placeholder={field.placeholder}
+                    minLength={field.min}
+                    maxLength={field.max}
                     onChange={(e) => onChange(field.name, e.target.value)}
                 />
             );
@@ -77,6 +79,8 @@ export default function FormField({
                     {...commonProps}
                     value={typeof value === 'string' ? value : ''}
                     placeholder={field.placeholder}
+                    minLength={field.min}
+                    maxLength={field.max}
                     onChange={(e) => onChange(field.name, e.target.value)}
                 />
             );

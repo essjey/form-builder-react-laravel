@@ -12,7 +12,7 @@ class FormTemplateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,12 +23,10 @@ class FormTemplateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            [
-                'name' => ['required', 'string', 'max:255'],
-                'description' => ['nullable', 'string'],
-                'schema' => ['required', 'array'],
-                'schema.fields' => ['required', 'array'],
-            ],
+            'name' => ['required', 'string', 'max:255', 'unique:form_templates,name'],
+            'description' => ['nullable', 'string'],
+            'schema' => ['required', 'array'],
+            'schema.fields' => ['required', 'array'],
         ];
     }
 }

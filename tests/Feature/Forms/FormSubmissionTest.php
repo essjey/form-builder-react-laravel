@@ -1,6 +1,15 @@
 <?php
 
 use App\Models\FormTemplate;
+use App\Models\User;
+
+beforeEach(function () {
+    $user = User::factory()->create([
+        'email_verified_at' => now(),
+    ]);
+
+    $this->actingAs($user);
+});
 
 test('submits a form submission', function () {
     $template = FormTemplate::create([
@@ -36,7 +45,7 @@ test('fails validation when email is missing', function () {
         ],
     ]);
 
-    $response = $this->post("/templates/{$template->id}/submissions", [
+    $response = $this->from("/templates/{$template->id}")->post("/templates/{$template->id}/submissions", [
         'message' => 'hello',
     ]);
 
@@ -55,7 +64,7 @@ test('fails validation when textarea is below min length', function () {
         ],
     ]);
 
-    $response = $this->post("/templates/{$template->id}/submissions", [
+    $response = $this->from("/templates/{$template->id}")->post("/templates/{$template->id}/submissions", [
         'message' => 'hey',
     ]);
 
@@ -74,7 +83,7 @@ test('fails validation when textarea exceeds max length', function () {
         ],
     ]);
 
-    $response = $this->post("/templates/{$template->id}/submissions", [
+    $response = $this->from("/templates/{$template->id}")->post("/templates/{$template->id}/submissions", [
         'message' => 'hello world',
     ]);
 

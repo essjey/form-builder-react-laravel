@@ -70,9 +70,9 @@ class FormTemplateController extends Controller
         return redirect()->route('templates.edit', $template);
     }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  */
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(FormTemplate $template)
     {
         $template->delete();

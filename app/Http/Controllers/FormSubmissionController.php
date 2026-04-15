@@ -15,10 +15,10 @@ class FormSubmissionController extends Controller
     {
         $rules = $rulesBuilder->build($template);
 
-        $request->validate($rules);
+        $validated = $request->validate($rules);
 
         $template->submissions()->create([
-            'data' => $request->all(),
+            'data' => $validated,
             'submitted_at' => now(),
         ]);
 

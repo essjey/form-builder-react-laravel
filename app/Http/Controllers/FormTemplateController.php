@@ -59,7 +59,7 @@ class FormTemplateController extends Controller
 
     public function update(FormTemplateRequest $request, FormTemplate $template)
     {
-        $validated = $request->validate();
+        $validated = $request->validated();
 
         $template->update([
             'name' => $validated['name'],

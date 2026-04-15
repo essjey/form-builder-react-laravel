@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import FormRenderer from '@/components/forms/FormRenderer';
+import * as templates from '@/routes/templates';
 import type { FormTemplate } from '@/types/forms';
 
 interface Props {
@@ -40,3 +41,10 @@ export default function Show({ template }: Props) {
         </>
     );
 }
+
+Show.layout = {
+    breadcrumbs: [
+        { title: 'Forms', href: templates.index() },
+        { title: 'View', href: '#' }
+    ],
+};

@@ -13,7 +13,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';
 
 Route::middleware(['auth', 'verified'])->group(
     function () {
@@ -27,6 +27,8 @@ Route::middleware(['auth', 'verified'])->group(
             ->name('templates.edit');
         Route::post('templates', [FormTemplateController::class, 'store']);
         Route::put('templates/{template}', [FormTemplateController::class, 'update']);
+        Route::delete('templates/{template}', [FormTemplateController::class, 'destroy'])
+            ->name('templates.destroy');
 
         Route::post('templates/{template}/submissions', [FormSubmissionController::class, 'store']);
     }

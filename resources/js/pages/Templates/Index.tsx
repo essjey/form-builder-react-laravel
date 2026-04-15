@@ -1,4 +1,5 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
+import { Trash2 } from 'lucide-react';
 import * as templates from '@/routes/templates';
 import type { FormTemplate } from '@/types/forms';
 
@@ -7,6 +8,18 @@ type Props = {
 };
 
 export default function Index({ templates }: Props) {
+    function handleDelete(template: FormTemplate) {
+        const confirmed = window.confirm(
+            `Delete "${template.name}"? This can be restored later if you build a trash view.`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        router.delete(`/templates/${template.id}`);
+    }
+
     return (
         <>
             <Head title="Form Templates" />
@@ -35,7 +48,7 @@ export default function Index({ templates }: Props) {
                         {templates.map((template) => (
                             <div
                                 key={template.id}
-                                className="rounded-lg border border-gray-200 bg-white p-4"
+                                className="relative rounded-lg border border-gray-200 bg-white p-4"
                             >
                                 <div className="flex items-start justify-between gap-4">
                                     <div className="space-y-2">
@@ -69,6 +82,16 @@ export default function Index({ templates }: Props) {
                                         >
                                             Edit
                                         </Link>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => handleDelete(template)}
+                                            className="rounded border border-red-300 p-2 text-red-600 hover:bg-red-50"
+                                            aria-label={`Delete ${template.name}`}
+                                            title="Delete form"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +101,6 @@ export default function Index({ templates }: Props) {
                     <div className="rounded-lg border border-gray-200 bg-white p-6 text-gray-600">
                         <svg viewBox="0 0 500 100" width="100%" height="auto" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Empty field placeholder">
                             <rect x="1" y="1" width="498" height="98" rx="3" fill="#FAFAFA" stroke="#D4D4D8" strokeDasharray="6 6" />
-
                             <rect x="24" y="20" width="140" height="12" rx="6" fill="#E4E4E7" />
                             <rect x="24" y="42" width="452" height="16" rx="8" fill="#F4F4F5" stroke="#E4E4E7" />
                             <rect x="24" y="70" width="220" height="10" rx="5" fill="#E4E4E7" />

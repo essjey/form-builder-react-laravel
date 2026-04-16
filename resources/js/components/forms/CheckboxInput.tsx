@@ -11,21 +11,25 @@ type CheckboxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 
     errorClass?: string;
 };
 
-export default function Checkbox({
-    label,
-    error,
-    help,
-    checkWrapClass,
-    labelClass,
-    helpClass,
-    errorClass,
-    ...props
-}: CheckboxProps) {
+const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
+    {
+        label,
+        error,
+        help,
+        checkWrapClass,
+        labelClass,
+        helpClass,
+        errorClass,
+        ...props
+    },
+    ref
+) {
     return (
         <>
             <div className={`flex items-center gap-2 ${checkWrapClass}`}>
                 <input
                     {...props}
+                    ref={ref}
                     id={props.id}
                     type="checkbox"
                     aria-invalid={!!error}
@@ -56,4 +60,6 @@ export default function Checkbox({
             )}
         </>
     );
-}
+});
+
+export default Checkbox;

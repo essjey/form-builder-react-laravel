@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FormTemplateRequest;
+use App\Http\Requests\StoreFormTemplateRequest;
+use App\Http\Requests\UpdateFormTemplateRequest;
 use App\Models\FormTemplate;
 use Inertia\Inertia;
 
@@ -18,7 +19,7 @@ class FormTemplateController extends Controller
         ]);
     }
 
-    public function store(FormTemplateRequest $request)
+    public function store(StoreFormTemplateRequest $request)
     {
         $validated = $request->validated();
 
@@ -57,7 +58,7 @@ class FormTemplateController extends Controller
         ]);
     }
 
-    public function update(FormTemplateRequest $request, FormTemplate $template)
+    public function update(UpdateFormTemplateRequest $request, FormTemplate $template)
     {
         $validated = $request->validated();
 

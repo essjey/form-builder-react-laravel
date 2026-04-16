@@ -11,16 +11,19 @@ type SelectProps = Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'id'> & {
     options: { value: string; label: string }[];
 };
 
-export default function Select({
-    label,
-    error,
-    help,
-    labelClass,
-    helpClass,
-    errorClass,
-    options,
-    ...props
-}: SelectProps) {
+const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(
+    {
+        label,
+        error,
+        help,
+        labelClass,
+        helpClass,
+        errorClass,
+        options,
+        ...props
+    },
+    ref
+) {
     return (
         <>
             {label && (
@@ -31,6 +34,7 @@ export default function Select({
 
             <select
                 {...props}
+                ref={ref}
                 aria-invalid={!!error}
                 aria-describedby={[
                     help ? `help-${props.id}` : null,
@@ -58,4 +62,6 @@ export default function Select({
             )}
         </>
     );
-}
+});
+
+export default Select;

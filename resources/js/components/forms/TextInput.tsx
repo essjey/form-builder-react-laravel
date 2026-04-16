@@ -10,7 +10,10 @@ type TextInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'id'> & 
     errorClass?: string;
 };
 
-export default function TextInput({ label, error, help, labelClass, helpClass, errorClass, ...props }: TextInputProps) {
+const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
+    { label, error, help, labelClass, helpClass, errorClass, ...props },
+    ref
+) {
     return (
         <>
             {label && (
@@ -21,6 +24,7 @@ export default function TextInput({ label, error, help, labelClass, helpClass, e
 
             <input
                 {...props}
+                ref={ref}
                 aria-invalid={!!error}
                 aria-describedby={[
                     help ? `help-${props.id}` : null,
@@ -42,4 +46,6 @@ export default function TextInput({ label, error, help, labelClass, helpClass, e
             )}
         </>
     );
-}
+});
+
+export default TextInput;

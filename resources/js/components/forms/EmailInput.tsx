@@ -15,6 +15,11 @@ type EmailInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' 
  * @todo email validation feedback ?
  **/
 
-export default function EmailInput(props: EmailInputProps) {
-    return <TextInput {...props} type="email" />;
-}
+const EmailInput = React.forwardRef<HTMLInputElement, EmailInputProps>(function EmailInput(
+    props,
+    ref
+) {
+    return <TextInput {...props} ref={ref} type="email" />;
+});
+
+export default EmailInput;

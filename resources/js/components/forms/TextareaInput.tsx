@@ -10,7 +10,10 @@ type TextareaInputProps = Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>
     errorClass?: string;
 };
 
-export default function TextareaInput({ label, error, help, labelClass, helpClass, errorClass, ...props }: TextareaInputProps) {
+const TextareaInput = React.forwardRef<HTMLTextAreaElement, TextareaInputProps>(function TextareaInput(
+    { label, error, help, labelClass, helpClass, errorClass, ...props },
+    ref
+) {
     return (
         <>
             {label && (
@@ -21,6 +24,7 @@ export default function TextareaInput({ label, error, help, labelClass, helpClas
 
             <textarea
                 {...props}
+                ref={ref}
                 aria-invalid={!!error}
                 aria-describedby={[
                     help ? `help-${props.id}` : null,
@@ -42,4 +46,6 @@ export default function TextareaInput({ label, error, help, labelClass, helpClas
             )}
         </>
     );
-}
+});
+
+export default TextareaInput;

@@ -8,9 +8,8 @@ import TextInput from './TextInput';
 
 type FormFieldProps = {
     field: Field;
-    value: string | boolean | string[] | undefined;
     error?: string;
-    onChange: (name: string, value: string | boolean | string[]) => void;
+    register: any;
     labelClass?: string;
     helpClass?: string;
     errorClass?: string;
@@ -19,9 +18,8 @@ type FormFieldProps = {
 
 export default function FormField({
     field,
-    value,
     error,
-    onChange,
+    register,
     labelClass,
     helpClass,
     errorClass,
@@ -45,21 +43,19 @@ export default function FormField({
             return (
                 <TextInput
                     {...commonProps}
+                    {...register(field.name)}
                     type="text"
-                    value={typeof value === 'string' ? value : ''}
                     placeholder={field.placeholder}
                     minLength={field.min}
                     maxLength={field.max}
-                    onChange={(e) => onChange(field.name, e.target.value)}
                 />
             );
         case 'date':
             return (
                 <TextInput
                     {...commonProps}
+                    {...register(field.name)}
                     type="date"
-                    value={typeof value === 'string' ? value : ''}
-                    onChange={(e) => onChange(field.name, e.target.value)}
                 />
             );
 
@@ -67,9 +63,8 @@ export default function FormField({
             return (
                 <EmailInput
                     {...commonProps}
-                    value={typeof value === 'string' ? value : ''}
+                    {...register(field.name)}
                     placeholder={field.placeholder}
-                    onChange={(e) => onChange(field.name, e.target.value)}
                 />
             );
 
@@ -77,11 +72,10 @@ export default function FormField({
             return (
                 <Textarea
                     {...commonProps}
-                    value={typeof value === 'string' ? value : ''}
+                    {...register(field.name)}
                     placeholder={field.placeholder}
                     minLength={field.min}
                     maxLength={field.max}
-                    onChange={(e) => onChange(field.name, e.target.value)}
                 />
             );
 
@@ -89,27 +83,9 @@ export default function FormField({
             return (
                 <Select
                     {...commonProps}
+                    {...register(field.name)}
                     options={field.options ?? []}
                     multiple={field.multiple}
-                    value={
-                        field.multiple
-                            ? Array.isArray(value)
-                                ? value
-                                : []
-                            : typeof value === 'string'
-                                ? value
-                                : ''
-                    }
-                    onChange={(e) => {
-                        if (field.multiple) {
-                            const selectedValues = Array.from(e.target.selectedOptions).map(
-                                (option) => option.value
-                            );
-                            onChange(field.name, selectedValues);
-                        } else {
-                            onChange(field.name, e.target.value);
-                        }
-                    }}
                 />
             );
 
@@ -117,8 +93,7 @@ export default function FormField({
             return (
                 <Checkbox
                     {...commonProps}
-                    checked={Boolean(value)}
-                    onChange={(e) => onChange(field.name, e.target.checked)}
+                    {...register(field.name)}
                 />
             );
 

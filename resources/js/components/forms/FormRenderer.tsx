@@ -1,5 +1,6 @@
-import { useForm } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import type { FormTemplate, FormValue } from '@/types/forms';
 import FormField from './FormField';
 
@@ -19,6 +20,8 @@ type FormRendererProps = {
     errorSummaryLinkClass?: string;
 };
 
+type FormValues = Record<string, FormValue>;
+
 export default function FormRenderer({
     template,
     submitLabel = 'Submit',
@@ -34,7 +37,7 @@ export default function FormRenderer({
     errorSummaryItemClass = '',
     errorSummaryLinkClass = 'text-red-700 underline',
 }: FormRendererProps) {
-    const initialData = template.schema.fields.reduce<Record<string, FormValue>>((acc, field) => {
+    const defaultValues = template.schema.fields.reduce<FormValues>((acc, field) => {
         if (field.type === 'checkbox') {
             acc[field.name] = false;
         } else if (field.type === 'select' && field.multiple) {
@@ -46,24 +49,25 @@ export default function FormRenderer({
         return acc;
     }, {});
 
-    const { data, setData, post, processing, errors, reset } = useForm(initialData);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        reset,
+    } = useForm<FormValues>({
+        defaultValues,
+    });
 
     const fieldsWithErrors = template.schema.fields.filter((field) => errors[field.name]);
 
-    function handleChange(name: string, value: FormValue) {
-        setData(name, value);
-    }
-
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-
-        post(`/templates/${template.id}/submissions`, {
+    function onSubmit(formData: FormValues) {
+        router.post(`/templates/${template.id}/submissions`, formData, {
             onSuccess: () => reset(),
         });
     }
 
     return (
-        <form onSubmit={handleSubmit} className={formClass} noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} className={formClass} noValidate>
             {fieldsWithErrors.length > 0 && (
                 <div className={errorSummaryClass} role="alert" aria-labelledby="form-errors-title">
                     <h2 id="form-errors-title" className="font-semibold text-gray-900">
@@ -74,7 +78,7 @@ export default function FormRenderer({
                         {fieldsWithErrors.map((field) => (
                             <li key={field.name} className={errorSummaryItemClass}>
                                 <a href={`#${field.name}`} className={errorSummaryLinkClass}>
-                                    {field.label ?? field.name}: {errors[field.name]}
+                                    {field.label ?? field.name}: {errors[field.name]?.message as string}
                                 </a>
                             </li>
                         ))}
@@ -91,21 +95,20 @@ export default function FormRenderer({
                     <div key={field.name} className={fieldWrapperClass}>
                         <FormField
                             field={field}
-                            value={data[field.name]}
-                            error={errors[field.name]}
-                            onChange={handleChange}
+                            register={register}
+                            error={errors[field.name]?.message as string | undefined}
                             labelClass={labelClass}
                             helpClass={helpClass}
                             errorClass={errorClass}
                             inputClass={inputClass}
                         />
                     </div>
-                )
+                );
             })}
 
             <div>
-                <button type="submit" className={submitClass} disabled={processing}>
-                    {processing ? 'Submitting...' : submitLabel}
+                <button type="submit" className={submitClass} disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : submitLabel}
                 </button>
             </div>
         </form>

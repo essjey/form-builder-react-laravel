@@ -49,6 +49,12 @@ export default function FormBuilder({
     const names = fields.map((f) => f.name.trim());
     const hasDuplicates = new Set(names).size !== names.length;
 
+    React.useEffect(() => {
+        setName(template.name);
+        setDescription(template.description ?? '');
+        setFields(template.schema.fields.map(createBuilderField));
+    }, [template.id, template.name, template.description, template.schema]);
+
     const isInvalid = hasEmptyNames || hasDuplicates;
 
     function updateField(builderId: string, updatedField: Field) {

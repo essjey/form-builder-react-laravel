@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateFormTemplateRequest extends FormRequest
 {
@@ -23,7 +24,12 @@ class UpdateFormTemplateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('form_templates', 'name')->ignore($this->route('template')?->id),
+            ],
             'description' => ['nullable', 'string'],
             'schema' => ['required', 'array'],
             'schema.fields' => ['required', 'array'],

@@ -1,7 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from '@inertiajs/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import type { FormTemplate, FormValue } from '@/types/forms';
+import { buildFormSchema } from '@/lib/schema';
+import type { FormTemplate } from '@/types/forms';
 import FormField from './FormField';
 
 type FormRendererProps = {
@@ -19,8 +21,8 @@ type FormRendererProps = {
     errorSummaryItemClass?: string;
     errorSummaryLinkClass?: string;
 };
-
-type FormValues = Record<string, FormValue>;
+type FormValues = Record<string, unknown>;
+type SubmitValues = Record<string, string | boolean | string[]>;
 
 export default function FormRenderer({
     template,
@@ -37,6 +39,7 @@ export default function FormRenderer({
     errorSummaryItemClass = '',
     errorSummaryLinkClass = 'text-red-700 underline',
 }: FormRendererProps) {
+
     const defaultValues = template.schema.fields.reduce<FormValues>((acc, field) => {
         if (field.type === 'checkbox') {
             acc[field.name] = false;
@@ -49,26 +52,35 @@ export default function FormRenderer({
         return acc;
     }, {});
 
+
+    const schema = React.useMemo(
+        () => buildFormSchema(template.schema.fields),
+        [template.schema.fields]
+    );
+
     const {
-        register,
+        control,
         handleSubmit,
-        formState: { errors, isSubmitting },
+        formState: { errors, isSubmitting, submitCount },
         reset,
     } = useForm<FormValues>({
         defaultValues,
+        resolver: zodResolver(schema),
+        mode: 'onBlur',
+        reValidateMode: 'onChange',
     });
 
     const fieldsWithErrors = template.schema.fields.filter((field) => errors[field.name]);
 
     function onSubmit(formData: FormValues) {
-        router.post(`/templates/${template.id}/submissions`, formData, {
+        router.post(`/templates/${template.id}/submissions`, formData as SubmitValues, {
             onSuccess: () => reset(),
         });
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={formClass} noValidate>
-            {fieldsWithErrors.length > 0 && (
+            {submitCount > 0 && fieldsWithErrors.length > 0 && (
                 <div className={errorSummaryClass} role="alert" aria-labelledby="form-errors-title">
                     <h2 id="form-errors-title" className="font-semibold text-gray-900">
                         Please correct the following errors:
@@ -95,8 +107,7 @@ export default function FormRenderer({
                     <div key={field.name} className={fieldWrapperClass}>
                         <FormField
                             field={field}
-                            register={register}
-                            error={errors[field.name]?.message as string | undefined}
+                            control={control}
                             labelClass={labelClass}
                             helpClass={helpClass}
                             errorClass={errorClass}

@@ -5,6 +5,7 @@ import type { Field } from '@/types/forms';
 import Checkbox from './CheckboxInput';
 import EmailInput from './EmailInput';
 import Select from './SelectInput';
+import SelectSearchInput from './SelectSearchInput';
 import Textarea from './TextareaInput';
 import TextInput from './TextInput';
 
@@ -147,6 +148,23 @@ export default function FormField({
                                     rhfField.onChange(e.target.value);
                                 }
                             }}
+                        />
+                    )}
+                />
+            );
+
+        case 'selectsearch':
+            return (
+                <Controller
+                    name={fieldName}
+                    control={control}
+                    render={({ field: rhfField, fieldState }) => (
+                        <SelectSearchInput
+                            {...commonProps}
+                            {...rhfField}
+                            options={field.options ?? []}
+                            error={fieldState.error?.message}
+                            value={typeof rhfField.value === 'string' ? rhfField.value : ''}
                         />
                     )}
                 />

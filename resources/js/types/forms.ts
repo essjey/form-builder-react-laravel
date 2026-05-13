@@ -5,7 +5,7 @@ export type SelectOption = {
 
 export type Field = {
     name: string;
-    type: 'text' | 'email' | 'textarea' | 'select' | 'checkbox' | 'date';
+    type: 'text' | 'email' | 'textarea' | 'select' | 'selectsearch' | 'checkbox' | 'date';
     label?: string;
     help?: string;
     required?: boolean;

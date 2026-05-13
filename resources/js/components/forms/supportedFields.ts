@@ -75,7 +75,22 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
             multiple: false,
             options: [],
         },
-        settings: ['name', 'label', 'help', 'required', 'multiple', 'options'],
+        settings: ['name', 'label', 'help', 'required', /*'multiple',*/ 'options'],
+    },
+
+    selectsearch: {
+        type: 'selectsearch',
+        label: 'Select Search',
+        defaultField: {
+            name: '',
+            type: 'selectsearch',
+            label: 'Select Search',
+            help: '',
+            required: false,
+            multiple: false,
+            options: [],
+        },
+        settings: ['name', 'label', 'help', 'required', /*'multiple',*/ 'options'],
     },
 
     checkbox: {

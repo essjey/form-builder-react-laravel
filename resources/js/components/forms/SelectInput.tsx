@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 type SelectProps = Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'id'> & {
     id: string;
@@ -27,7 +28,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(
     return (
         <>
             {label && (
-                <label htmlFor={props.id} className={labelClass}>
+                <label htmlFor={props.id} className={cn(`${labelClass ?? ''} block mb-2`)}>
                     {label}
                 </label>
             )}
@@ -40,7 +41,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(
                     help ? `help-${props.id}` : null,
                     error ? `error-${props.id}` : null,
                 ].filter(Boolean).join(' ') || undefined}
-                className={props.className}
+                className={cn((props.className ?? '') + 'w-full rounded border px-3 py-2')}
             >
                 {options.map(option => (
                     <option key={option.value} value={option.value}>

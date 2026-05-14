@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 type TextInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'id'> & {
     id: string;
@@ -17,7 +18,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
     return (
         <>
             {label && (
-                <label htmlFor={props.id} className={`${labelClass}`}>
+                <label htmlFor={props.id} className={cn(`${labelClass}`)}>
                     {label}
                 </label>
             )}
@@ -30,7 +31,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
                     help ? `help-${props.id}` : null,
                     error ? `error-${props.id}` : null,
                 ].filter(Boolean).join(' ') || undefined}
-                className={props.className ?? ''}
+                className={cn((props.className ?? '') + 'w-full rounded border px-3 py-2')}
             />
 
             {help && (

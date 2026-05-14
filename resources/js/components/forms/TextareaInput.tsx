@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 type TextareaInputProps = Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'id'> & {
     id: string;
@@ -17,7 +18,7 @@ const TextareaInput = React.forwardRef<HTMLTextAreaElement, TextareaInputProps>(
     return (
         <>
             {label && (
-                <label htmlFor={props.id} className={labelClass}>
+                <label htmlFor={props.id} className={cn(`${labelClass ?? ''} block mb-2`)}>
                     {label}
                 </label>
             )}

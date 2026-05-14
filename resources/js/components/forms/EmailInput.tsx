@@ -19,7 +19,7 @@ const EmailInput = React.forwardRef<HTMLInputElement, EmailInputProps>(function 
     props,
     ref
 ) {
-    return <TextInput {...props} ref={ref} type="email" />;
+    return <TextInput {...props} ref={ref} type="email" labelClass='block mb-2' className='w-full rounded border px-3 py-2' />;
 });
 
 export default EmailInput;

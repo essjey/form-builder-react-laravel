@@ -150,7 +150,7 @@ export default function SearchableSelectInput({
             className={cn('relative', preview && 'pointer-events-none')}
         >
             {label && (
-                <label id={`${id}-label`} className={labelClass}>
+                <label id={`${id}-label`} className={cn(`${labelClass} block mb-2`)}>
                     {label}
                 </label>
             )}

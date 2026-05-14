@@ -28,6 +28,7 @@ export default function FieldLibraryPanel({
                         className="justify-start"
                         onClick={() => onAddField(fieldDefinition.type)}
                     >
+                        {fieldDefinition.icon && <fieldDefinition.icon />}
                         {fieldDefinition.label}
                     </Button>
                 ))}

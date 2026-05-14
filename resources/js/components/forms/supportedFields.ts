@@ -1,3 +1,4 @@
+import { CaseLower, Text, SquareChevronDown, ScanSearch, SquareCheck, Mail, CalendarFold } from 'lucide-react';
 import type { Field } from '@/types/forms';
 
 export type SupportedFieldType = Field['type'];
@@ -15,6 +16,7 @@ export type FieldSettingKey =
 
 export type SupportedFieldDefinition = {
     type: SupportedFieldType;
+    icon?: React.ComponentType;
     label: string;
     defaultField: Field;
     settings: FieldSettingKey[];
@@ -24,6 +26,7 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
     text: {
         type: 'text',
         label: 'Short Text',
+        icon: CaseLower,
         defaultField: {
             name: '',
             type: 'text',
@@ -38,6 +41,7 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
     textarea: {
         type: 'textarea',
         label: 'Long Text',
+        icon: Text,
         defaultField: {
             name: '',
             type: 'textarea',
@@ -52,6 +56,7 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
     select: {
         type: 'select',
         label: 'Dropdown',
+        icon: SquareChevronDown,
         defaultField: {
             name: '',
             type: 'select',
@@ -67,6 +72,7 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
     selectsearch: {
         type: 'selectsearch',
         label: 'Searchable Dropdown',
+        icon: ScanSearch,
         defaultField: {
             name: '',
             type: 'selectsearch',
@@ -82,6 +88,7 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
     checkbox: {
         type: 'checkbox',
         label: 'Checkbox',
+        icon: SquareCheck,
         defaultField: {
             name: '',
             type: 'checkbox',
@@ -95,6 +102,7 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
     email: {
         type: 'email',
         label: 'Email',
+        icon: Mail,
         defaultField: {
             name: '',
             type: 'email',
@@ -109,6 +117,7 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
     date: {
         type: 'date',
         label: 'Date',
+        icon: CalendarFold,
         defaultField: {
             name: '',
             type: 'date',

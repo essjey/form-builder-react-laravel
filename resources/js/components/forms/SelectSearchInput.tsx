@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 type SelectOption = {
     value: string;
@@ -10,7 +11,10 @@ type SearchableSelectInputProps = {
     name: string;
     value: string;
     options: SelectOption[];
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
+    disabled?: boolean;
+    tabIndex?: number;
+    preview?: boolean;
     label?: string;
     error?: string;
     help?: string;
@@ -33,6 +37,9 @@ export default function SearchableSelectInput({
     value,
     options,
     onChange,
+    disabled = false,
+    tabIndex,
+    preview = false,
     label,
     error,
     help,
@@ -67,6 +74,10 @@ export default function SearchableSelectInput({
     const activeOption = filteredOptions[activeIndex];
 
     function open() {
+        if (disabled || preview) {
+            return;
+        }
+
         setIsOpen(true);
         setActiveIndex(0);
     }
@@ -78,11 +89,15 @@ export default function SearchableSelectInput({
     }
 
     function selectOption(option: SelectOption) {
-        onChange(option.value);
+        onChange?.(option.value);
         close();
     }
 
     function handleTriggerKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
+        if (disabled || preview) {
+            return;
+        }
+
         if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowDown') {
             event.preventDefault();
             open();
@@ -130,19 +145,24 @@ export default function SearchableSelectInput({
     }, []);
 
     return (
-        <div ref={wrapperRef} className="relative">
+        <div
+            ref={wrapperRef}
+            className={cn('relative', preview && 'pointer-events-none')}
+        >
             {label && (
                 <label id={`${id}-label`} className={labelClass}>
                     {label}
                 </label>
             )}
 
-            <input type="hidden" name={name} value={value} />
+            {!preview && <input type="hidden" name={name} value={value} />}
 
             <button
                 id={id}
                 type="button"
                 role="combobox"
+                tabIndex={preview ? -1 : tabIndex}
+                disabled={disabled}
                 aria-labelledby={label ? `${id}-label` : undefined}
                 aria-expanded={isOpen}
                 aria-controls={listboxId}
@@ -159,7 +179,7 @@ export default function SearchableSelectInput({
                 {selectedOption?.label ?? placeholder}
             </button>
 
-            {isOpen && (
+            {!preview && isOpen && (
                 <div className={panelClass}>
                     <input
                         ref={searchInputRef}
@@ -196,11 +216,11 @@ export default function SearchableSelectInput({
                                     >
                                         <button
                                             type="button"
-                                            className={[
+                                            className={cn(
                                                 optionClass,
-                                                isActive ? activeOptionClass : null,
-                                                isSelected ? selectedOptionClass : null,
-                                            ].filter(Boolean).join(' ')}
+                                                isActive && activeOptionClass,
+                                                isSelected && selectedOptionClass,
+                                            )}
                                             onMouseEnter={() => setActiveIndex(index)}
                                             onClick={() => selectOption(option)}
                                         >

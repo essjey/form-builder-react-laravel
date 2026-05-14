@@ -1,142 +1,75 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import type { Field, FormTemplate } from '@/types/forms';
+import type { Field } from '@/types/forms';
 import FieldSettings from './FieldSettings';
-import { createDefaultField, supportedFieldList } from './supportedFields';
-import type { SupportedFieldType } from './supportedFields';
 
 type BuilderField = Field & {
     builderId: string;
 };
 
 type FormBuilderProps = {
-    template: FormTemplate;
-    onSubmit: (template: FormTemplate) => void;
+    name: string;
+    description: string;
+    fields: BuilderField[];
     selectedFieldName?: string | null;
+
+    onNameChange: (value: string) => void;
+    onDescriptionChange: (value: string) => void;
     onSelectField?: (fieldName: string) => void;
-    wrapperClass?: string;
-    sectionClass?: string;
-    inputClass?: string;
-    labelClass?: string;
-    errorClass?: string;
-    buttonClass?: string;
+    onSubmit: () => void;
 };
 
-function generateId() {
-    return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
-
-function createBuilderField(field: Field): BuilderField {
-    return {
-        ...field,
-        builderId: generateId(),
-    };
-}
-
 export default function FormBuilder({
-    template,
-    onSubmit,
+    name,
+    description,
+    fields,
     selectedFieldName,
+    onNameChange,
+    onDescriptionChange,
     onSelectField,
-    // wrapperClass = 'space-y-6',
-    // sectionClass = 'space-y-4 rounded border p-4',
-    // inputClass = 'w-full rounded border px-3 py-2',
-    // labelClass = 'block text-sm font-medium mb-1',
-    // errorClass = 'text-sm text-red-600',
-    // buttonClass = 'rounded border px-3 py-2',
+    onSubmit,
 }: FormBuilderProps) {
-    const [name, setName] = React.useState(template.name);
-    const [description, setDescription] = React.useState(template.description ?? '');
-    const [fields, setFields] = React.useState<BuilderField[]>(
-        template.schema.fields.map(createBuilderField)
-    );
     const hasEmptyNames = fields.some((field) => !field.name.trim());
-    const names = fields.map((f) => f.name.trim());
-    const hasDuplicates = new Set(names).size !== names.length;
 
-    React.useEffect(() => {
-        setName(template.name);
-        setDescription(template.description ?? '');
-        setFields(template.schema.fields.map(createBuilderField));
-    }, [template.id, template.name, template.description, template.schema]);
+    const names = fields.map((f) => f.name.trim());
+
+    const hasDuplicates = new Set(names).size !== names.length;
 
     const isInvalid = hasEmptyNames || hasDuplicates;
 
-    function updateField(builderId: string, updatedField: Field) {
-        setFields((currentFields) =>
-            currentFields.map((field) =>
-                field.builderId === builderId
-                    ? { ...updatedField, builderId: field.builderId }
-                    : field
-            )
-        );
-    }
-
-    function removeField(builderId: string) {
-        setFields((currentFields) =>
-            currentFields.filter((field) => field.builderId !== builderId)
-        );
-    }
-
-    function addField(type: SupportedFieldType) {
-        setFields((currentFields) => [
-            ...currentFields,
-            createBuilderField(createDefaultField(type)),
-        ]);
-    }
-
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-
-        onSubmit({
-            ...template,
-            name,
-            description: description || null,
-            schema: {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                fields: fields.map(({ builderId, ...field }) => field),
-            },
-        });
-    }
-
     return (
-        <form onSubmit={handleSubmit} className='grid grid-cols-1 gap-4' noValidate>
+        <form
+            onSubmit={(e) => {
+                e.preventDefault();
+                onSubmit();
+            }}
+            className="grid grid-cols-1 gap-4"
+            noValidate
+        >
             <div>
                 <label htmlFor="template-name" className="w-full">
                     Template name
                 </label>
+
                 <input
                     id="template-name"
                     type="text"
                     value={name}
                     className="w-full"
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => onNameChange(e.target.value)}
                 />
 
-                <label htmlFor="template-description" className='w-full'>
+                <label htmlFor="template-description" className="w-full">
                     Description
                 </label>
+
                 <textarea
                     id="template-description"
                     className="w-full"
                     value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e) => onDescriptionChange(e.target.value)}
                 />
-            </div>
-
-            <div>
-                <div className="flex flex-wrap gap-2">
-                    {supportedFieldList.map((fieldDefinition) => (
-                        <Button
-                            key={fieldDefinition.type}
-                            type="button"
-                            onClick={() => addField(fieldDefinition.type)}
-                        >
-                            Add {fieldDefinition.label}
-                        </Button>
-                    ))}
-                </div>
             </div>
 
             <div className="space-y-4">
@@ -155,24 +88,12 @@ export default function FormBuilder({
                             <FieldSettings
                                 field={field}
                                 existingNames={fields.map((item) => item.name)}
-                                onChange={(updatedField) =>
-                                    updateField(field.builderId, updatedField)
-                                }
-                                onRemove={() => removeField(field.builderId)}
+                                readOnly
                             />
                         </div>
                     ))
                 ) : (
-                    <div>
-                        {/* <p className='text-black'>No fields added yet.</p> */}
-                        <svg viewBox="0 0 500 100" width="100%" height="auto" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Empty field placeholder">
-                            <rect x="1" y="1" width="498" height="98" rx="3" fill="#FAFAFA" stroke="#D4D4D8" strokeDasharray="6 6" />
-
-                            <rect x="24" y="20" width="140" height="12" rx="6" fill="#E4E4E7" />
-                            <rect x="24" y="42" width="452" height="16" rx="8" fill="#F4F4F5" stroke="#E4E4E7" />
-                            <rect x="24" y="70" width="220" height="10" rx="5" fill="#E4E4E7" />
-                        </svg>
-                    </div>
+                    <div>No fields added yet.</div>
                 )}
             </div>
 

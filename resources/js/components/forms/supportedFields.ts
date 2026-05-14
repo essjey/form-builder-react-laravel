@@ -23,7 +23,7 @@ export type SupportedFieldDefinition = {
 export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinition> = {
     text: {
         type: 'text',
-        label: 'Text Input',
+        label: 'Short Text',
         defaultField: {
             name: '',
             type: 'text',
@@ -35,23 +35,9 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
         settings: ['name', 'label', 'help', 'required', 'placeholder', 'min', 'max'],
     },
 
-    email: {
-        type: 'email',
-        label: 'Email Input',
-        defaultField: {
-            name: '',
-            type: 'email',
-            label: 'Email',
-            help: '',
-            required: false,
-            placeholder: '',
-        },
-        settings: ['name', 'label', 'help', 'required', 'placeholder'],
-    },
-
     textarea: {
         type: 'textarea',
-        label: 'Textarea',
+        label: 'Long Text',
         defaultField: {
             name: '',
             type: 'textarea',
@@ -65,7 +51,7 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
 
     select: {
         type: 'select',
-        label: 'Select',
+        label: 'Dropdown',
         defaultField: {
             name: '',
             type: 'select',
@@ -80,7 +66,7 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
 
     selectsearch: {
         type: 'selectsearch',
-        label: 'Select Search',
+        label: 'Searchable Dropdown',
         defaultField: {
             name: '',
             type: 'selectsearch',
@@ -106,9 +92,23 @@ export const supportedFields: Record<SupportedFieldType, SupportedFieldDefinitio
         settings: ['name', 'label', 'help', 'required'],
     },
 
+    email: {
+        type: 'email',
+        label: 'Email',
+        defaultField: {
+            name: '',
+            type: 'email',
+            label: 'Email',
+            help: '',
+            required: false,
+            placeholder: '',
+        },
+        settings: ['name', 'label', 'help', 'required', 'placeholder'],
+    },
+
     date: {
         type: 'date',
-        label: 'Date Input',
+        label: 'Date',
         defaultField: {
             name: '',
             type: 'date',

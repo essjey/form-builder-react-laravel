@@ -12,6 +12,8 @@ type BuilderField = Field & {
 type FormBuilderProps = {
     template: FormTemplate;
     onSubmit: (template: FormTemplate) => void;
+    selectedFieldName?: string | null;
+    onSelectField?: (fieldName: string) => void;
     wrapperClass?: string;
     sectionClass?: string;
     inputClass?: string;
@@ -34,6 +36,8 @@ function createBuilderField(field: Field): BuilderField {
 export default function FormBuilder({
     template,
     onSubmit,
+    selectedFieldName,
+    onSelectField,
     // wrapperClass = 'space-y-6',
     // sectionClass = 'space-y-4 rounded border p-4',
     // inputClass = 'w-full rounded border px-3 py-2',
@@ -137,13 +141,25 @@ export default function FormBuilder({
             <div className="space-y-4">
                 {fields.length > 0 ? (
                     fields.map((field) => (
-                        <FieldSettings
+                        <div
                             key={field.builderId}
-                            field={field}
-                            existingNames={fields.map((item) => item.name)}
-                            onChange={(updatedField) => updateField(field.builderId, updatedField)}
-                            onRemove={() => removeField(field.builderId)}
-                        />
+                            onClick={() => onSelectField?.(field.name)}
+                            className={[
+                                'rounded-lg border border-border transition-colors',
+                                field.name === selectedFieldName
+                                    ? 'border-primary-container bg-surface-container-high'
+                                    : 'bg-surface-container',
+                            ].join(' ')}
+                        >
+                            <FieldSettings
+                                field={field}
+                                existingNames={fields.map((item) => item.name)}
+                                onChange={(updatedField) =>
+                                    updateField(field.builderId, updatedField)
+                                }
+                                onRemove={() => removeField(field.builderId)}
+                            />
+                        </div>
                     ))
                 ) : (
                     <div>

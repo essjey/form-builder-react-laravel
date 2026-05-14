@@ -84,6 +84,7 @@ export function buildFieldSchema(field: Field) {
             return schema;
         }
 
+        case 'selectsearch':
         case 'select': {
             if (field.multiple) {
                 let arraySchema = z.array(z.string(), {

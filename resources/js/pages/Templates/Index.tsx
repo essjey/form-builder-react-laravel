@@ -27,17 +27,16 @@ export default function Index({ templates }: Props) {
             <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
                 <div className="flex items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                        <h1>
                             Form Templates
                         </h1>
-                        <p className="text-gray-600">
+                        <p>
                             View and manage your form templates.
                         </p>
                     </div>
 
                     <Link
                         href="/templates/create"
-                        className="rounded border border-gray-300 px-3 py-2 text-sm"
                     >
                         Create Form
                     </Link>

@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from '@inertiajs/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import { buildFormSchema } from '@/lib/schema';
 import type { FormTemplate } from '@/types/forms';
 import FormField from './FormField';
@@ -33,7 +34,7 @@ export default function FormRenderer({
     helpClass = 'mt-1 text-sm text-gray-500',
     errorClass = 'mt-1 text-sm text-red-600',
     inputClass = 'w-full rounded border px-3 py-2',
-    submitClass = 'rounded bg-black px-4 py-2 text-white',
+    submitClass = '',
     errorSummaryClass = 'rounded border border-red-300 bg-red-50 p-4',
     errorSummaryListClass = 'mt-2 list-none pl-0',
     errorSummaryItemClass = '',
@@ -117,11 +118,14 @@ export default function FormRenderer({
                 );
             })}
 
-            <div>
-                <button type="submit" className={submitClass} disabled={isSubmitting}>
+            {/* <div> */}
+            {/* <button type="submit" className={submitClass} disabled={isSubmitting}>
                     {isSubmitting ? 'Submitting...' : submitLabel}
-                </button>
-            </div>
+                </button> */}
+            <Button type="submit" className={submitClass} disabled={isSubmitting}>
+                {isSubmitting ? 'Submitting...' : submitLabel}
+            </Button>
+            {/* </div> */}
         </form>
     );
 }

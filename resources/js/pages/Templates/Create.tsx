@@ -24,10 +24,10 @@ export default function Create() {
 
             <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <h1 className="text-3xl font-bold">
                         Create Form
                     </h1>
-                    <p className="text-gray-600">
+                    <p className="">
                         Build a new form template.
                     </p>
                 </div>
@@ -35,12 +35,6 @@ export default function Create() {
                 <FormBuilder
                     template={emptyTemplate}
                     onSubmit={handleSubmit}
-                    wrapperClass="space-y-6"
-                    sectionClass="space-y-4 rounded-lg border border-gray-200 bg-white p-4"
-                    inputClass="w-full rounded border border-gray-300 px-3 py-2 dark:text-gray-900"
-                    labelClass="block text-sm font-medium text-gray-900 mb-1"
-                    errorClass="text-sm text-red-600"
-                    buttonClass="rounded border border-gray-300 px-3 py-2 text-sm dark:text-gray-900"
                 />
             </div>
         </>

@@ -30,12 +30,6 @@ export default function Edit({ template }: Props) {
                 <FormBuilder
                     template={template}
                     onSubmit={handleSubmit}
-                    wrapperClass="space-y-6"
-                    sectionClass="space-y-4 rounded-lg border border-gray-200 bg-white p-4"
-                    inputClass="w-full rounded border border-gray-300 px-3 py-2 text-gray-900"
-                    labelClass="block text-sm font-medium text-gray-900 mb-1"
-                    errorClass="text-sm text-red-600"
-                    buttonClass="rounded border border-gray-300 px-3 py-2 text-sm text-gray-900"
                 />
             </div>
         </>

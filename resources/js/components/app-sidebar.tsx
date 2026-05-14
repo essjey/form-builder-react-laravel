@@ -24,7 +24,7 @@ const mainNavItems: NavItem[] = [
     //     icon: LayoutGrid,
     // },
     {
-        title: 'Forms',
+        title: 'My Forms',
         href: templates.index(),
         icon: LayoutList,
     }

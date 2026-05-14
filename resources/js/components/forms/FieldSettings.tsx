@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@/components/ui/button';
 import type { Field } from '@/types/forms';
 import { supportedFields } from './supportedFields';
 
@@ -78,9 +79,9 @@ export default function FieldSettings({
                     <p className="text-sm text-gray-500">Type: {field.type}</p>
                 </div>
 
-                <button type="button" onClick={onRemove} className={buttonClass}>
+                <Button type="button" onClick={onRemove} className={buttonClass} variant="secondary">
                     Remove
-                </button>
+                </Button>
             </div>
 
             {fieldDefinition.settings.includes('label') && (
@@ -229,9 +230,9 @@ export default function FieldSettings({
                 <div className="space-y-3">
                     <div className="flex items-center justify-between gap-4">
                         <label className={labelClass}>Options</label>
-                        <button type="button" onClick={addOption} className={buttonClass}>
+                        <Button type="button" onClick={addOption} className={buttonClass}>
                             Add option
-                        </button>
+                        </Button>
                     </div>
 
                     {(field.options ?? []).map((option, index) => (
@@ -250,13 +251,14 @@ export default function FieldSettings({
                                 value={option.value}
                                 onChange={(e) => updateOption(index, 'value', e.target.value)}
                             />
-                            <button
+                            <Button
                                 type="button"
                                 onClick={() => removeOption(index)}
                                 className={buttonClass}
+                                variant="outline"
                             >
                                 Remove
-                            </button>
+                            </Button>
                         </div>
                     ))}
                 </div>

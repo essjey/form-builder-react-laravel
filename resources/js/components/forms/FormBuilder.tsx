@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@/components/ui/button';
 import type { Field, FormTemplate } from '@/types/forms';
 import FieldSettings from './FieldSettings';
 import { createDefaultField, supportedFieldList } from './supportedFields';
@@ -33,12 +34,12 @@ function createBuilderField(field: Field): BuilderField {
 export default function FormBuilder({
     template,
     onSubmit,
-    wrapperClass = 'space-y-6',
-    sectionClass = 'space-y-4 rounded border p-4',
-    inputClass = 'w-full rounded border px-3 py-2',
-    labelClass = 'block text-sm font-medium mb-1',
-    errorClass = 'text-sm text-red-600',
-    buttonClass = 'rounded border px-3 py-2',
+    // wrapperClass = 'space-y-6',
+    // sectionClass = 'space-y-4 rounded border p-4',
+    // inputClass = 'w-full rounded border px-3 py-2',
+    // labelClass = 'block text-sm font-medium mb-1',
+    // errorClass = 'text-sm text-red-600',
+    // buttonClass = 'rounded border px-3 py-2',
 }: FormBuilderProps) {
     const [name, setName] = React.useState(template.name);
     const [description, setDescription] = React.useState(template.description ?? '');
@@ -95,45 +96,40 @@ export default function FormBuilder({
     }
 
     return (
-        <form onSubmit={handleSubmit} className={wrapperClass}>
-            <div className={sectionClass}>
-                <div>
-                    <label htmlFor="template-name" className={labelClass}>
-                        Template name
-                    </label>
-                    <input
-                        id="template-name"
-                        type="text"
-                        className={inputClass}
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
+        <form onSubmit={handleSubmit} className='grid grid-cols-1 gap-4' noValidate>
+            <div>
+                <label htmlFor="template-name" className="w-full">
+                    Template name
+                </label>
+                <input
+                    id="template-name"
+                    type="text"
+                    value={name}
+                    className="w-full"
+                    onChange={(e) => setName(e.target.value)}
+                />
 
-                <div>
-                    <label htmlFor="template-description" className={labelClass}>
-                        Description
-                    </label>
-                    <textarea
-                        id="template-description"
-                        className={inputClass}
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </div>
+                <label htmlFor="template-description" className='w-full'>
+                    Description
+                </label>
+                <textarea
+                    id="template-description"
+                    className="w-full"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
             </div>
 
-            <div className={sectionClass}>
+            <div>
                 <div className="flex flex-wrap gap-2">
                     {supportedFieldList.map((fieldDefinition) => (
-                        <button
+                        <Button
                             key={fieldDefinition.type}
                             type="button"
-                            className={buttonClass}
                             onClick={() => addField(fieldDefinition.type)}
                         >
                             Add {fieldDefinition.label}
-                        </button>
+                        </Button>
                     ))}
                 </div>
             </div>
@@ -147,15 +143,10 @@ export default function FormBuilder({
                             existingNames={fields.map((item) => item.name)}
                             onChange={(updatedField) => updateField(field.builderId, updatedField)}
                             onRemove={() => removeField(field.builderId)}
-                            wrapperClass={sectionClass}
-                            inputClass={inputClass}
-                            labelClass={labelClass}
-                            errorClass={errorClass}
-                            buttonClass={buttonClass}
                         />
                     ))
                 ) : (
-                    <div className={`${sectionClass}`}>
+                    <div>
                         {/* <p className='text-black'>No fields added yet.</p> */}
                         <svg viewBox="0 0 500 100" width="100%" height="auto" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Empty field placeholder">
                             <rect x="1" y="1" width="498" height="98" rx="3" fill="#FAFAFA" stroke="#D4D4D8" strokeDasharray="6 6" />
@@ -169,9 +160,9 @@ export default function FormBuilder({
             </div>
 
             <div>
-                <button type="submit" className={`${buttonClass} dark:text-white`} disabled={isInvalid}>
+                <Button type="submit" disabled={isInvalid}>
                     Save template
-                </button>
+                </Button>
             </div>
         </form>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import type { Field, FormTemplate } from '@/types/forms';
 import FieldSettings from './FieldSettings';
 import { createDefaultField, supportedFieldList } from './supportedFields';
@@ -144,12 +145,12 @@ export default function FormBuilder({
                         <div
                             key={field.builderId}
                             onClick={() => onSelectField?.(field.name)}
-                            className={[
-                                'rounded-lg border border-border transition-colors',
+                            className={cn(
+                                'rounded-lg border transition-colors',
                                 field.name === selectedFieldName
                                     ? 'border-primary-container bg-surface-container-high'
-                                    : 'bg-surface-container',
-                            ].join(' ')}
+                                    : 'border-border bg-surface-container',
+                            )}
                         >
                             <FieldSettings
                                 field={field}

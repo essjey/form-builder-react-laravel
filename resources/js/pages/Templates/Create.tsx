@@ -129,7 +129,6 @@ export default function Create() {
                             type="button"
                             onClick={handleSubmit}
                             disabled={!name.trim()}
-                            className="rounded-lg bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50"
                         >
                             Create form
                         </Button>

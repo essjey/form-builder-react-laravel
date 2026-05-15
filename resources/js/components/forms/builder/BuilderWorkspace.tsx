@@ -12,7 +12,7 @@ export default function BuilderWorkspace({
     properties,
 }: BuilderWorkspaceProps) {
     return (
-        <div className="flex h-full min-h-[calc(100vh-4rem)] overflow-hidden">
+        <div className="flex h-full overflow-hidden">
             {/* Left Panel */}
             <aside className="hidden w-80 shrink-0 border-r border-border bg-surface-container lg:block">
                 <div className="h-full overflow-y-auto">

@@ -1,4 +1,5 @@
 import React from 'react';
+import SwitchInput from '@/components/forms/SwitchInput';
 import { Button } from '@/components/ui/button';
 import type { Field } from '@/types/forms';
 import { supportedFields } from './supportedFields';
@@ -192,24 +193,17 @@ export default function FieldSettings({
             )}
 
             {fieldDefinition.settings.includes('required') && (
-                <div className="flex items-center gap-2">
-                    <input
-                        id={`${field.name || field.type}-required`}
-                        type="checkbox"
-                        checked={!!field.required}
-                        disabled={readOnly}
-                        onChange={(e) =>
-                            updateField('required', e.target.checked)
-                        }
-                    />
-
-                    <label
-                        htmlFor={`${field.name || field.type}-required`}
-                        className={labelClass}
-                    >
-                        Required
-                    </label>
-                </div>
+                <SwitchInput
+                    id={`${field.name || field.type}-required`}
+                    checked={!!field.required}
+                    disabled={readOnly}
+                    label="Required"
+                    help="Force user to fill this field"
+                    labelClass={labelClass}
+                    helpClass="text-sm text-on-surface-variant"
+                    errorClass={errorClass}
+                    onCheckedChange={(checked) => updateField('required', checked)}
+                />
             )}
 
             {fieldDefinition.settings.includes('min') && (
@@ -287,24 +281,17 @@ export default function FieldSettings({
             )}
 
             {fieldDefinition.settings.includes('multiple') && (
-                <div className="flex items-center gap-2">
-                    <input
-                        id={`${field.name || field.type}-multiple`}
-                        type="checkbox"
-                        checked={!!field.multiple}
-                        disabled={readOnly}
-                        onChange={(e) =>
-                            updateField('multiple', e.target.checked)
-                        }
-                    />
-
-                    <label
-                        htmlFor={`${field.name || field.type}-multiple`}
-                        className={labelClass}
-                    >
-                        Allow multiple selections
-                    </label>
-                </div>
+                <SwitchInput
+                    id={`${field.name || field.type}-multiple`}
+                    checked={!!field.multiple}
+                    disabled={readOnly}
+                    label="Allow multiple selections"
+                    help="Let users select more than one option"
+                    labelClass={labelClass}
+                    helpClass="text-sm text-on-surface-variant"
+                    errorClass={errorClass}
+                    onCheckedChange={(checked) => updateField('multiple', checked)}
+                />
             )}
 
             {fieldDefinition.settings.includes('options') && (

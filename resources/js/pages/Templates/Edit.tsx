@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Head, router } from '@inertiajs/react';
 import React from 'react';
 import BuilderFieldCard from '@/components/forms/builder/BuilderFieldCard';
@@ -88,7 +87,9 @@ export default function Edit({ template }: Props) {
                 ...template,
                 name,
                 description: description || null,
+
                 schema: {
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     fields: fields.map(({ builderId, ...field }) => field),
                 },
             },

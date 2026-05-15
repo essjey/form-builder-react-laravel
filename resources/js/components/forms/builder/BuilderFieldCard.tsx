@@ -102,7 +102,6 @@ function renderFieldPreview(field: Field, selected: boolean) {
         label: field.label,
         help: field.help,
         labelClass,
-        inputClass,
     };
 
     switch (field.type) {

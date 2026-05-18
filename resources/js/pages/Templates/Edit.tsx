@@ -6,8 +6,7 @@ import BuilderWorkspace from '@/components/forms/builder/BuilderWorkspace';
 import FieldPropertiesPanel from '@/components/forms/builder/FieldPropertiesPanel';
 import FormStructurePanel from '@/components/forms/builder/FormStructurePanel';
 import type { SupportedFieldType } from '@/components/forms/supportedFields';
-import { createDefaultField /*, supportedFieldList */ } from '@/components/forms/supportedFields';
-// import { Button } from '@/components/ui/button';
+import { createDefaultField } from '@/components/forms/supportedFields';
 import {
     createBuilderField,
     buildTemplatePayload

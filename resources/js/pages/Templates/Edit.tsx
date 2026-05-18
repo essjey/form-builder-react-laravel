@@ -2,11 +2,10 @@ import { Head, router } from '@inertiajs/react';
 import React from 'react';
 import BuilderFieldCard from '@/components/forms/builder/BuilderFieldCard';
 import BuilderWorkspace from '@/components/forms/builder/BuilderWorkspace';
-import FieldLibraryPanel from '@/components/forms/builder/FieldLibraryPanel';
 import FieldPropertiesPanel from '@/components/forms/builder/FieldPropertiesPanel';
-// import FormBuilder from '@/components/forms/FormBuilder';
-import type { SupportedFieldType } from '@/components/forms/supportedFields';
-import { createDefaultField } from '@/components/forms/supportedFields';
+import FormStructurePanel from '@/components/forms/builder/FormStructurePanel';
+// import type { SupportedFieldType } from '@/components/forms/supportedFields';
+// import { createDefaultField } from '@/components/forms/supportedFields';
 import * as templates from '@/routes/templates';
 import type { Field, FormTemplate } from '@/types/forms';
 
@@ -66,13 +65,13 @@ export default function Edit({ template }: Props) {
         setSelectedFieldName(null);
     }
 
-    function addField(type: SupportedFieldType) {
-        const newField = createBuilderField(createDefaultField(type));
+    // function addField(type: SupportedFieldType) {
+    //     const newField = createBuilderField(createDefaultField(type));
 
-        setFields((currentFields) => [...currentFields, newField]);
+    //     setFields((currentFields) => [...currentFields, newField]);
 
-        setSelectedFieldName(newField.name);
-    }
+    //     setSelectedFieldName(newField.name);
+    // }
 
     function handleSubmit() {
         if (!name.trim()) {
@@ -116,8 +115,14 @@ export default function Edit({ template }: Props) {
 
             <BuilderWorkspace
                 sidebar={
-                    <FieldLibraryPanel
-                        onAddField={addField}
+                    // <FieldLibraryPanel
+                    //     onAddField={addField}
+                    // />
+                    <FormStructurePanel
+                        fields={fields}
+                        selectedFieldName={selectedFieldName}
+                        onSelectField={setSelectedFieldName}
+                        onReorderFields={(newFields) => setFields(newFields)}
                     />
                 }
                 // canvas={

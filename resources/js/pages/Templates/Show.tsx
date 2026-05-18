@@ -1,5 +1,7 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
+import { Pencil } from 'lucide-react';
 import FormRenderer from '@/components/forms/FormRenderer';
+import { Button } from '@/components/ui/button';
 import * as templates from '@/routes/templates';
 import type { FormTemplate } from '@/types/forms';
 
@@ -8,35 +10,53 @@ interface Props {
 }
 
 export default function Show({ template }: Props) {
-    const formattedDate = new Date(template.created_at).toLocaleDateString();
-
     return (
         <>
             <Head title={template.name} />
 
-            <div className="max-w-2xl mx-auto px-4 py-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-3 dark:text-white">
-                    {template.name}
-                </h1>
+            <div className="mx-auto max-w-5xl w-full px-6 py-8">
+                <div className="overflow-hidden rounded-3xl border border-outline-variant bg-background shadow-xl">
+                    <div className="relative h-56 border-b border-outline-variant bg-primary-container">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
 
-                {template.description ? (
-                    <p className="text-gray-600 mb-6">{template.description}</p>
-                ) : null}
+                        <div className="absolute bottom-8 left-8">
+                            <h1 className="text-3xl font-semibold text-on-primary-container">
+                                {template.name}
+                            </h1>
 
-                <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-6">
-                    Created on {formattedDate}
+                            {template.description ? (
+                                <p className="mt-2 max-w-2xl text-body-md text-on-primary-container/80">
+                                    {template.description}
+                                </p>
+                            ) : null}
+                        </div>
+                    </div>
+
+                    <div className="bg-surface-container-lowest px-8 py-10">
+                        <div className="flex justify-end">
+                            <Button asChild variant="outline">
+                                <Link href={`/templates/${template.id}/edit`}>
+                                    <Pencil className="h-4 w-4" />
+                                    Edit Form
+                                </Link>
+                            </Button>
+                        </div>
+                        <FormRenderer
+                            template={template}
+                            formClass="space-y-10"
+                            fieldWrapperClass="space-y-2"
+                            labelClass="block text-label-md font-medium text-on-surface"
+                            helpClass="mt-1 text-sm text-on-surface-variant"
+                            errorClass="mt-1 text-sm text-error"
+                            inputClass="w-full rounded-xl border border-outline-variant bg-surface-container px-4 py-3 text-body-md text-on-surface transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                            submitClass="rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+                            errorSummaryClass="rounded-2xl border border-error bg-error-container p-4 text-on-error-container"
+                            errorSummaryListClass="mt-2 space-y-1"
+                            errorSummaryItemClass="text-sm"
+                            errorSummaryLinkClass="underline"
+                        />
+                    </div>
                 </div>
-
-                <FormRenderer
-                    template={template}
-                    formClass="space-y-6"
-                    fieldWrapperClass="space-y-1"
-                    labelClass="block text-sm font-medium text-gray-900 dark:text-white"
-                    helpClass="text-sm text-gray-500"
-                    errorClass="text-sm text-red-600"
-                    inputClass="w-full rounded border border-gray-300 px-3 py-2"
-                    submitClass="rounded bg-black px-4 py-2 text-white"
-                />
             </div>
         </>
     );
@@ -45,6 +65,6 @@ export default function Show({ template }: Props) {
 Show.layout = {
     breadcrumbs: [
         { title: 'Forms', href: templates.index() },
-        { title: 'View', href: '#' }
+        { title: 'View', href: '#' },
     ],
 };

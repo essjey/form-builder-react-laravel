@@ -1,11 +1,13 @@
 import { Head, router } from '@inertiajs/react';
 import React from 'react';
+import AddFieldCard from '@/components/forms/builder/AddFieldCard';
 import BuilderFieldCard from '@/components/forms/builder/BuilderFieldCard';
 import BuilderWorkspace from '@/components/forms/builder/BuilderWorkspace';
 import FieldPropertiesPanel from '@/components/forms/builder/FieldPropertiesPanel';
 import FormStructurePanel from '@/components/forms/builder/FormStructurePanel';
-// import type { SupportedFieldType } from '@/components/forms/supportedFields';
-// import { createDefaultField } from '@/components/forms/supportedFields';
+import type { SupportedFieldType } from '@/components/forms/supportedFields';
+import { createDefaultField /*, supportedFieldList */ } from '@/components/forms/supportedFields';
+// import { Button } from '@/components/ui/button';
 import * as templates from '@/routes/templates';
 import type { Field, FormTemplate } from '@/types/forms';
 
@@ -65,13 +67,13 @@ export default function Edit({ template }: Props) {
         setSelectedFieldName(null);
     }
 
-    // function addField(type: SupportedFieldType) {
-    //     const newField = createBuilderField(createDefaultField(type));
+    function addField(type: SupportedFieldType) {
+        const newField = createBuilderField(createDefaultField(type));
 
-    //     setFields((currentFields) => [...currentFields, newField]);
+        setFields((currentFields) => [...currentFields, newField]);
 
-    //     setSelectedFieldName(newField.name);
-    // }
+        setSelectedFieldName(newField.name);
+    }
 
     function handleSubmit() {
         if (!name.trim()) {
@@ -115,9 +117,6 @@ export default function Edit({ template }: Props) {
 
             <BuilderWorkspace
                 sidebar={
-                    // <FieldLibraryPanel
-                    //     onAddField={addField}
-                    // />
                     <FormStructurePanel
                         fields={fields}
                         selectedFieldName={selectedFieldName}
@@ -125,34 +124,40 @@ export default function Edit({ template }: Props) {
                         onReorderFields={(newFields) => setFields(newFields)}
                     />
                 }
-                // canvas={
-                //     <FormBuilder
-                //         name={name}
-                //         description={description}
-                //         fields={fields}
-                //         selectedFieldName={selectedFieldName}
-                //         onNameChange={setName}
-                //         onDescriptionChange={setDescription}
-                //         onSelectField={setSelectedFieldName}
-                //         onSubmit={handleSubmit}
-                //     />
-                // }
                 canvas={
-                    <div className="space-y-4">
-                        {fields.length > 0 ? (
-                            fields.map((field) => (
-                                <BuilderFieldCard
-                                    key={field.builderId}
-                                    field={field}
-                                    selected={field.name === selectedFieldName}
-                                    onClick={() => setSelectedFieldName(field.name)}
-                                />
-                            ))
-                        ) : (
-                            <div className="rounded-xl border border-dashed border-border p-12 text-center text-muted-foreground">
-                                No fields added yet.
+                    <div className="space-y-6">
+                        <div className="space-y-4">
+                            {fields.length > 0 ? (
+                                fields.map((field) => (
+                                    <BuilderFieldCard
+                                        key={field.builderId}
+                                        field={field}
+                                        selected={field.name === selectedFieldName}
+                                        onClick={() => setSelectedFieldName(field.name)}
+                                    />
+                                ))
+                            ) : (
+                                <div className="rounded-xl border border-dashed border-border p-12 text-center text-muted-foreground">
+                                    No fields added yet.
+                                </div>
+                            )}
+                        </div>
+
+                        {/* <div className="rounded-xl border border-dashed border-outline-variant bg-surface-container-low p-4">
+                            <div className="flex flex-wrap gap-2">
+                                {supportedFieldList.map((fieldDefinition) => (
+                                    <Button
+                                        key={fieldDefinition.type}
+                                        variant="outline"
+                                        onClick={() => addField(fieldDefinition.type)}
+                                    >
+                                        Add {fieldDefinition.label}
+                                    </Button>
+                                ))}
                             </div>
-                        )}
+                        </div> */}
+
+                        <AddFieldCard onAddField={addField} />
                     </div>
                 }
                 properties={

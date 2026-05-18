@@ -1,29 +1,22 @@
 import { Head, router } from '@inertiajs/react';
 import React from 'react';
+import AddFieldCard from '@/components/forms/builder/AddFieldCard';
 import BuilderFieldCard from '@/components/forms/builder/BuilderFieldCard';
 import BuilderWorkspace from '@/components/forms/builder/BuilderWorkspace';
-import FieldLibraryPanel from '@/components/forms/builder/FieldLibraryPanel';
 import FieldPropertiesPanel from '@/components/forms/builder/FieldPropertiesPanel';
+import FormStructurePanel from '@/components/forms/builder/FormStructurePanel';
 import type { SupportedFieldType } from '@/components/forms/supportedFields';
 import { createDefaultField } from '@/components/forms/supportedFields';
-import { Button } from '@/components/ui/button';
+import {
+    createBuilderField,
+    buildTemplatePayload
+
+} from '@/lib/formBuilder';
+import type { BuilderField } from '@/lib/formBuilder';
 import * as templates from '@/routes/templates';
 import type { Field } from '@/types/forms';
 
-type BuilderField = Field & {
-    builderId: string;
-};
 
-function generateId() {
-    return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
-
-function createBuilderField(field: Field): BuilderField {
-    return {
-        ...field,
-        builderId: generateId(),
-    };
-}
 
 export default function Create() {
     const [name, setName] = React.useState('');
@@ -61,14 +54,7 @@ export default function Create() {
             return;
         }
 
-        router.post('/templates', {
-            name,
-            description: description || null,
-            schema: {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                fields: fields.map(({ builderId, ...field }) => field),
-            },
-        });
+        router.post('/templates', buildTemplatePayload({}, name, description, fields));
     }
 
     const selectedField =
@@ -79,9 +65,16 @@ export default function Create() {
             <Head title="Create Form" />
 
             <BuilderWorkspace
-                sidebar={<FieldLibraryPanel onAddField={addField} />}
+                sidebar={
+                    <FormStructurePanel
+                        fields={fields}
+                        selectedFieldName={selectedFieldName}
+                        onSelectField={setSelectedFieldName}
+                        onReorderFields={setFields}
+                    />
+                }
                 canvas={
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                         <div className="rounded-xl border border-border bg-surface-container-low p-6">
                             <label htmlFor="template-name" className="block text-label-md">
                                 Form name
@@ -110,34 +103,32 @@ export default function Create() {
                             />
                         </div>
 
-                        {fields.length > 0 ? (
-                            fields.map((field) => (
-                                <BuilderFieldCard
-                                    key={field.builderId}
-                                    field={field}
-                                    selected={field.name === selectedFieldName}
-                                    onClick={() => setSelectedFieldName(field.name)}
-                                />
-                            ))
-                        ) : (
-                            <div className="rounded-xl border border-dashed border-border p-12 text-center text-muted-foreground">
-                                No fields added yet.
-                            </div>
-                        )}
+                        <div className="space-y-4">
+                            {fields.length > 0 ? (
+                                fields.map((field) => (
+                                    <BuilderFieldCard
+                                        key={field.builderId}
+                                        field={field}
+                                        selected={field.name === selectedFieldName}
+                                        onClick={() => setSelectedFieldName(field.name)}
+                                    />
+                                ))
+                            ) : (
+                                <div className="rounded-xl border border-dashed border-border p-12 text-center text-muted-foreground">
+                                    No fields added yet.
+                                </div>
+                            )}
+                        </div>
 
-                        <Button
-                            type="button"
-                            onClick={handleSubmit}
-                            disabled={!name.trim()}
-                        >
-                            Create form
-                        </Button>
+                        <AddFieldCard onAddField={addField} />
                     </div>
                 }
                 properties={
                     <FieldPropertiesPanel
                         selectedField={selectedField}
                         existingNames={fields.map((field) => field.name)}
+                        onSave={handleSubmit}
+                        saveDisabled={!name.trim()}
                         onChange={(updatedField) => {
                             if (!selectedField) {
                                 return;

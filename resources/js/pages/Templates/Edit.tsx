@@ -8,27 +8,18 @@ import FormStructurePanel from '@/components/forms/builder/FormStructurePanel';
 import type { SupportedFieldType } from '@/components/forms/supportedFields';
 import { createDefaultField /*, supportedFieldList */ } from '@/components/forms/supportedFields';
 // import { Button } from '@/components/ui/button';
+import {
+    createBuilderField,
+    buildTemplatePayload
+
+} from '@/lib/formBuilder';
+import type { BuilderField } from '@/lib/formBuilder';
 import * as templates from '@/routes/templates';
 import type { Field, FormTemplate } from '@/types/forms';
-
-type BuilderField = Field & {
-    builderId: string;
-};
 
 type Props = {
     template: FormTemplate;
 };
-
-function generateId() {
-    return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
-
-function createBuilderField(field: Field): BuilderField {
-    return {
-        ...field,
-        builderId: generateId(),
-    };
-}
 
 export default function Edit({ template }: Props) {
     const [name, setName] = React.useState(template.name);
@@ -84,19 +75,10 @@ export default function Edit({ template }: Props) {
 
         router.put(
             `/templates/${template.id}`,
+            buildTemplatePayload(template, name, description, fields),
             {
-                ...template,
-                name,
-                description: description || null,
-
-                schema: {
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    fields: fields.map(({ builderId, ...field }) => field),
-                },
-            },
-            {
-                preserveState: true,
                 preserveScroll: true,
+                preserveState: true,
                 onSuccess: () => {
                     setSaveMessage('Saved!');
 
@@ -142,21 +124,6 @@ export default function Edit({ template }: Props) {
                                 </div>
                             )}
                         </div>
-
-                        {/* <div className="rounded-xl border border-dashed border-outline-variant bg-surface-container-low p-4">
-                            <div className="flex flex-wrap gap-2">
-                                {supportedFieldList.map((fieldDefinition) => (
-                                    <Button
-                                        key={fieldDefinition.type}
-                                        variant="outline"
-                                        onClick={() => addField(fieldDefinition.type)}
-                                    >
-                                        Add {fieldDefinition.label}
-                                    </Button>
-                                ))}
-                            </div>
-                        </div> */}
-
                         <AddFieldCard onAddField={addField} />
                     </div>
                 }

@@ -4,16 +4,22 @@ import { Button } from '@/components/ui/button';
 import ThemeToggle from '@/components/ui/ToggleTheme';
 import { login, register } from '@/routes';
 
+const siteName: string = 'Form Studio';
+const footerLinks: { label: string; href: string }[] = [
+    { label: 'Privacy', href: '#' },
+    { label: 'Terms', href: '#' },
+];
+
 export default function Welcome() {
     return (
         <>
-            <Head title="Form Studio" />
+            <Head title={siteName} />
 
             <main className="min-h-screen bg-background text-on-surface">
                 <header className="border-b border-outline-variant bg-surface-container-lowest">
                     <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
                         <Link href="/" className="text-label-md font-semibold">
-                            Form Studio
+                            {siteName}
                         </Link>
 
                         <div className="flex items-center gap-6">
@@ -89,14 +95,17 @@ export default function Welcome() {
                 </section>
 
                 <footer className="border-t border-outline-variant bg-surface-container px-6 py-12 text-center">
-                    <p className="text-headline-md">Form Studio</p>
+                    <p className="text-headline-md">{siteName}</p>
                     <p className="mt-3 text-sm text-on-surface-variant">
                         © 2026 Lorem Ipsum. All rights reserved.
                     </p>
 
                     <div className="mt-6 flex justify-center gap-8 text-sm text-on-surface-variant">
-                        <a href="#">Privacy</a>
-                        <a href="#">Terms</a>
+                        {footerLinks.map((link) => (
+                            <a key={link.href} href={link.href}>
+                                {link.label}
+                            </a>
+                        ))}
                     </div>
                 </footer>
             </main>

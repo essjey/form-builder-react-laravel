@@ -7,7 +7,6 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { UserMenuContent } from '@/components/user-menu-content';
 import { useInitials } from '@/hooks/use-initials';
 import type { BreadcrumbItem as BreadcrumbItemType } from '@/types';
-import ToggleTheme from './ui/ToggleTheme';
 
 export function AppSidebarHeader({
     breadcrumbs = [],
@@ -23,30 +22,31 @@ export function AppSidebarHeader({
             <div className="flex items-center gap-2 w-full">
                 <SidebarTrigger className="-ml-1" />
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
-                <ToggleTheme className="ml-auto" />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button
-                            variant="ghost"
-                            className="border border-outline-variant bg-surface-container-high size-10 rounded-full p-1"
-                        >
-                            <Avatar className="size-9 overflow-hidden rounded-full">
-                                <AvatarImage
-                                    src={auth.user?.avatar}
-                                    alt={auth.user?.name}
-                                />
-                                <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                    {getInitials(auth.user?.name ?? '')}
-                                </AvatarFallback>
-                            </Avatar>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56" align="end">
-                        {auth.user && (
-                            <UserMenuContent user={auth.user} />
-                        )}
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="ml-auto" >
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button
+                                variant="ghost"
+                                className="border border-outline-variant bg-surface-container-high size-10 rounded-full p-1"
+                            >
+                                <Avatar className="size-9 overflow-hidden rounded-full">
+                                    <AvatarImage
+                                        src={auth.user?.avatar}
+                                        alt={auth.user?.name}
+                                    />
+                                    <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                        {getInitials(auth.user?.name ?? '')}
+                                    </AvatarFallback>
+                                </Avatar>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-56" align="end">
+                            {auth.user && (
+                                <UserMenuContent user={auth.user} />
+                            )}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             </div>
         </header>
     );

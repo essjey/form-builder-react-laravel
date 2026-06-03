@@ -15,7 +15,7 @@ class FormTemplateController extends Controller
     public function index()
     {
         return Inertia::render('Templates/Index', [
-            'templates' => FormTemplate::all(),
+            'templates' => FormTemplate::all()->where('user_id', auth()->id()),
         ]);
     }
 
@@ -28,6 +28,7 @@ class FormTemplateController extends Controller
             'description' => $validated['description'] ?? null,
             'schema' => $validated['schema'],
             'is_active' => true,
+            'user_id' => auth()->id(),
         ]);
 
         return redirect()->route('templates.show', $template);

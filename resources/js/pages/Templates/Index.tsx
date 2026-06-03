@@ -174,12 +174,8 @@ export default function Index({ templates }: Props) {
                     </div>
                 ) : (
                     <div className="rounded-2xl border border-dashed border-outline-variant bg-surface-container-lowest p-12 text-center">
-                        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-container text-on-primary-container">
-                            <Plus className="h-6 w-6" />
-                        </div>
-
                         <h2 className="mt-4 text-headline-md text-on-surface">
-                            No forms yet
+                            No forms found.
                         </h2>
 
                         <p className="mx-auto mt-2 max-w-md text-body-md text-on-surface-variant">

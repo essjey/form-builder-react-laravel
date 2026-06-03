@@ -91,13 +91,12 @@ export default function Welcome() {
                 <footer className="border-t border-outline-variant bg-surface-container px-6 py-12 text-center">
                     <p className="text-headline-md">Form Studio</p>
                     <p className="mt-3 text-sm text-on-surface-variant">
-                        © 2026 Luminous Architect Inc.
+                        © 2026 Lorem Ipsum. All rights reserved.
                     </p>
 
                     <div className="mt-6 flex justify-center gap-8 text-sm text-on-surface-variant">
                         <a href="#">Privacy</a>
                         <a href="#">Terms</a>
-                        <a href="#">Twitter</a>
                     </div>
                 </footer>
 

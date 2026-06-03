@@ -15,7 +15,7 @@ class FormTemplateController extends Controller
     public function index()
     {
         return Inertia::render('Templates/Index', [
-            'templates' => FormTemplate::all()->where('user_id', auth()->id()),
+            'templates' => FormTemplate::where('user_id', auth()->id())->get(),
         ]);
     }
 

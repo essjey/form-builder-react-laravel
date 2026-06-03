@@ -99,15 +99,6 @@ export default function Welcome() {
                         <a href="#">Terms</a>
                     </div>
                 </footer>
-
-                {/* <nav className="fixed inset-x-0 bottom-0 border-t border-outline-variant bg-surface-container-lowest px-4 py-2 md:hidden">
-                    <div className="mx-auto grid max-w-sm grid-cols-4 text-xs">
-                        <MobileNavItem active icon={<Plus className="h-4 w-4" />} label="Build" />
-                        <MobileNavItem icon={<BadgeCheck className="h-4 w-4" />} label="Fields" />
-                        <MobileNavItem icon={<GitBranch className="h-4 w-4" />} label="Logic" />
-                        <MobileNavItem icon={<Settings className="h-4 w-4" />} label="Settings" />
-                    </div>
-                </nav> */}
             </main>
         </>
     );
@@ -146,24 +137,3 @@ function FeatureCard({
         </article>
     );
 }
-
-// function MobileNavItem({
-//     icon,
-//     label,
-//     active = false,
-// }: {
-//     icon: React.ReactNode;
-//     label: string;
-//     active?: boolean;
-// }) {
-//     return (
-//         <button
-//             type="button"
-//             className={`flex flex-col items-center gap-1 rounded-lg px-2 py-1 ${active ? 'bg-primary-fixed text-primary' : 'text-on-surface-variant'
-//                 }`}
-//         >
-//             {icon}
-//             <span>{label}</span>
-//         </button>
-//     );
-// }

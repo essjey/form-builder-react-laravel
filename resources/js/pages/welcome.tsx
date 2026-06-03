@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { BadgeCheck, GitBranch, Palette, /* Plus, Settings */ } from 'lucide-react';
+import { BadgeCheck, GitBranch, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from '@/components/ui/ToggleTheme';
 import { login, register } from '@/routes';
@@ -104,17 +104,20 @@ export default function Welcome() {
     );
 }
 
+type FeatureCardProps = {
+    icon: React.ReactNode;
+    title: string;
+    description: string;
+    tone: 'primary' | 'secondary' | 'tertiary';
+};
+
 function FeatureCard({
     icon,
     title,
     description,
     tone,
-}: {
-    icon: React.ReactNode;
-    title: string;
-    description: string;
-    tone: 'primary' | 'secondary' | 'tertiary';
-}) {
+}: FeatureCardProps) {
+
     const iconClass = {
         primary: 'bg-primary-fixed text-primary',
         secondary: 'bg-surface-container-highest text-on-surface-variant',

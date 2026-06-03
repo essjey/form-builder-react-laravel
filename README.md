@@ -23,7 +23,7 @@ Clone the repository:
 
 ```bash
 git clone <repository-url>
-cd form-studio
+cd <folder-name>
 ```
 
 Install dependencies:
@@ -33,7 +33,7 @@ composer install
 npm install
 ```
 
-Create the environment file:
+Create/Update the environment file:
 
 ```bash
 cp .env.example .env

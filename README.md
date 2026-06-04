@@ -1,6 +1,6 @@
 # Form Studio
 
-A form builder built with Laravel 13, React, TypeScript, and Inertia.
+A schema-driven form builder that allows users to create, organize, and manage reusable forms through a visual editing experience.
 
 ## Tech Stack
 

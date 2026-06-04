@@ -7,6 +7,7 @@
 - Improve save/success feedback styling
 - Clean up placeholder/disabled controls
 - ~~Final mobile editing pass~~
+- Update default route when user is logged in
 
 ### Builder Features
 - Sections/dividers

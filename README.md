@@ -1,6 +1,9 @@
-# Form Studio
+# Form Builder
 
-A schema-driven form builder that allows users to create, organize, and manage reusable forms through a visual editing experience.
+A schema-driven form builder for creating, organizing, and managing reusable forms through a visual editing experience.
+
+
+![Form Builder Editor](./Docs/images/editor.png)
 
 ## Tech Stack
 
@@ -13,7 +16,7 @@ A schema-driven form builder that allows users to create, organize, and manage r
 
 ## Requirements
 
-- PHP 8.2+
+- PHP 8.3+
 - Composer
 - Node.js 20+
 
@@ -33,7 +36,7 @@ composer install
 npm install
 ```
 
-Create/Update the environment file:
+Create the environment file:
 
 ```bash
 cp .env.example .env
@@ -87,7 +90,7 @@ Fix formatting:
 ./vendor/bin/pint
 ```
 
-## Production Build
+## Build Assets
 
 ```bash
 npm run build

@@ -48,7 +48,7 @@ export default function Show({ template }: Props) {
                             labelClass="block text-label-md font-medium text-on-surface"
                             helpClass="mt-1 text-sm text-on-surface-variant"
                             errorClass="mt-1 text-sm text-error"
-                            inputClass="w-full rounded-xl border border-outline-variant bg-surface-container px-4 py-3 text-body-md text-on-surface transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                            inputClass="rounded-xl border border-outline-variant px-4 py-3 text-body-md text-on-surface transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                             submitClass="rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
                             errorSummaryClass="rounded-2xl border border-error bg-error-container p-4 text-on-error-container"
                             errorSummaryListClass="mt-2 space-y-1"

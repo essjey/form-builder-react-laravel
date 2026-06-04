@@ -35,7 +35,7 @@ export default function AddFieldCard({
                 >
                     <div
                         className={cn(
-                            'flex h-14 w-14 items-center justify-center rounded-full border border-outline-variant bg-background transition-colors',
+                            'flex h-14 w-14 items-center justify-center rounded-full drop-shadow border border-outline-variant bg-background transition-colors',
                             'group-hover:border-primary'
                         )}
                     >

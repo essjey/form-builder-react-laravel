@@ -118,14 +118,9 @@ export default function FormRenderer({
                 );
             })}
 
-            {/* <div> */}
-            {/* <button type="submit" className={submitClass} disabled={isSubmitting}>
-                    {isSubmitting ? 'Submitting...' : submitLabel}
-                </button> */}
             <Button type="submit" className={submitClass} disabled={isSubmitting}>
                 {isSubmitting ? 'Submitting...' : submitLabel}
             </Button>
-            {/* </div> */}
         </form>
     );
 }

@@ -31,17 +31,17 @@ const TextareaInput = React.forwardRef<HTMLTextAreaElement, TextareaInputProps>(
                     help ? `help-${props.id}` : null,
                     error ? `error-${props.id}` : null,
                 ].filter(Boolean).join(' ') || undefined}
-                className={props.className}
+                className={cn('w-full line-clamp-4 rounded-md!', props.className)}
             />
 
             {help && (
-                <div id={`help-${props.id}`} className={helpClass}>
+                <div id={`help-${props.id}`} className={cn('text-sm', helpClass)}>
                     {help}
                 </div>
             )}
 
             {error && (
-                <div role="alert" id={`error-${props.id}`} className={errorClass}>
+                <div role="alert" id={`error-${props.id}`} className={cn('text-sm', errorClass)}>
                     {error}
                 </div>
             )}

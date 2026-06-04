@@ -1,3 +1,4 @@
+import { ArrowDown as Down, ArrowUp as Up } from 'lucide-react';
 import React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -172,11 +173,16 @@ export default function SearchableSelectInput({
                     help ? `help-${id}` : null,
                     error ? `error-${id}` : null,
                 ].filter(Boolean).join(' ') || undefined}
-                className={triggerClass}
+                className={cn(triggerClass, 'flex items-center justify-between')}
                 onClick={() => (isOpen ? close() : open())}
                 onKeyDown={handleTriggerKeyDown}
             >
                 {selectedOption?.label ?? placeholder}
+
+                {isOpen
+                    ? (<Up className="ml-2 h-4 w-4" />)
+                    : (<Down className="ml-2 h-4 w-4" />)
+                }
             </button>
 
             {!preview && isOpen && (

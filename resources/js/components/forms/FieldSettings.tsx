@@ -105,7 +105,7 @@ export default function FieldSettings({
             </div>
 
             {fieldDefinition.settings.includes('label') && (
-                <div>
+                <>
                     <label
                         className={labelClass}
                         htmlFor={`${field.name || field.type}-label`}
@@ -122,11 +122,11 @@ export default function FieldSettings({
                         readOnly={readOnly}
                         onChange={(e) => updateField('label', e.target.value)}
                     />
-                </div>
+                </>
             )}
 
             {fieldDefinition.settings.includes('name') && (
-                <div>
+                <>
                     <label
                         className={labelClass}
                         htmlFor={`${field.name || field.type}-name`}
@@ -147,11 +147,11 @@ export default function FieldSettings({
                     {nameError ? (
                         <p className={errorClass}>{nameError}</p>
                     ) : null}
-                </div>
+                </>
             )}
 
             {fieldDefinition.settings.includes('help') && (
-                <div>
+                <>
                     <label
                         className={labelClass}
                         htmlFor={`${field.name || field.type}-help`}
@@ -167,11 +167,11 @@ export default function FieldSettings({
                         readOnly={readOnly}
                         onChange={(e) => updateField('help', e.target.value)}
                     />
-                </div>
+                </>
             )}
 
             {fieldDefinition.settings.includes('placeholder') && (
-                <div>
+                <>
                     <label
                         className={labelClass}
                         htmlFor={`${field.name || field.type}-placeholder`}
@@ -189,7 +189,7 @@ export default function FieldSettings({
                             updateField('placeholder', e.target.value)
                         }
                     />
-                </div>
+                </>
             )}
 
             {fieldDefinition.settings.includes('required') && (
@@ -207,7 +207,7 @@ export default function FieldSettings({
             )}
 
             {fieldDefinition.settings.includes('min') && (
-                <div>
+                <>
                     <label
                         className={labelClass}
                         htmlFor={`${field.name || field.type}-min`}
@@ -249,11 +249,11 @@ export default function FieldSettings({
                             });
                         }}
                     />
-                </div>
+                </>
             )}
 
             {fieldDefinition.settings.includes('max') && (
-                <div>
+                <>
                     <label
                         className={labelClass}
                         htmlFor={`${field.name || field.type}-max`}
@@ -277,7 +277,7 @@ export default function FieldSettings({
                             )
                         }
                     />
-                </div>
+                </>
             )}
 
             {fieldDefinition.settings.includes('multiple') && (

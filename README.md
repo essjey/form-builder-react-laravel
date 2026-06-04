@@ -5,6 +5,15 @@ A schema-driven form builder for creating, organizing, and managing reusable for
 
 ![Form Builder Editor](./Docs/images/editor.png)
 
+## Features
+
+- Visual form editor
+- Schema-driven form rendering
+- Drag-and-drop field organization
+- Dynamic field configuration
+- Responsive editing experience
+- User-owned form templates
+
 ## Tech Stack
 
 - Laravel 13

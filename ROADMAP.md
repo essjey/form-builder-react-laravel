@@ -1,12 +1,12 @@
 ## Feature Backlog
 
 ### MVP Polish
-- Improve properties panel controls
+- Refine visuals for the form view
+- ~~Improve properties panel controls~~
 - Replace min/max number inputs with range-style controls
-- Refine option editing UI
 - Improve save/success feedback styling
 - Clean up placeholder/disabled controls
-- Final mobile editing pass
+- ~~Final mobile editing pass~~
 
 ### Builder Features
 - Sections/dividers

@@ -24,6 +24,7 @@ export default function Edit({ template }: Props) {
     const [name, setName] = React.useState(template.name);
     const [description, setDescription] = React.useState(template.description ?? '');
     const [saveMessage, setSaveMessage] = React.useState<string | null>(null);
+    const [mobileMode, setMobileMode] = React.useState<'build' | 'structure' | 'properties'>('build');
 
     const [fields, setFields] = React.useState<BuilderField[]>(
         template.schema.fields.map(createBuilderField)
@@ -97,6 +98,8 @@ export default function Edit({ template }: Props) {
             <Head title={`Edit ${template.name}`} />
 
             <BuilderWorkspace
+                mobileMode={mobileMode}
+                onMobileModeChange={setMobileMode}
                 sidebar={
                     <FormStructurePanel
                         fields={fields}

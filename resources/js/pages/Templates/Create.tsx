@@ -23,6 +23,7 @@ export default function Create() {
     const [description, setDescription] = React.useState('');
     const [fields, setFields] = React.useState<BuilderField[]>([]);
     const [selectedFieldName, setSelectedFieldName] = React.useState<string | null>(null);
+    const [mobileMode, setMobileMode] = React.useState<'build' | 'structure' | 'properties'>('build');
 
     function updateField(builderId: string, updatedField: Field) {
         setFields((currentFields) =>
@@ -65,6 +66,8 @@ export default function Create() {
             <Head title="Create Form" />
 
             <BuilderWorkspace
+                mobileMode={mobileMode}
+                onMobileModeChange={setMobileMode}
                 sidebar={
                     <FormStructurePanel
                         fields={fields}
